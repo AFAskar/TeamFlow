@@ -1,3 +1,6 @@
+- use pnpm
+- use shadcn/ui components when available
+
 <laravel-boost-guidelines>
 === foundation rules ===
 
@@ -359,7 +362,7 @@ If your application uses the `useForm` component from Inertia, you can directly 
   it('returns all', function () {
   $response = $this->postJson('/api/docs', []);
 
-          $response->assertSuccessful();
+                    $response->assertSuccessful();
 
     });
     </code-snippet>
