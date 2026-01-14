@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskComment\StoreTaskCommentRequest;
 use App\Http\Resources\TaskCommentResource;
+use App\Models\Task;
 use App\Models\TaskComment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -11,11 +12,13 @@ use Illuminate\Http\Request;
 
 class TaskCommentController extends Controller
 {
-    public function store(StoreTaskCommentRequest $request): JsonResponse|RedirectResponse
+    public function store(StoreTaskCommentRequest $request, ?Task $task = null): JsonResponse|RedirectResponse
     {
+        $taskId = $task?->id ?? $request->validated('task_id');
+
         $comment = TaskComment::create([
-            'task_id' => $request->validated('task_id'),
-            'comment' => $request->validated('comment'),
+            'task_id' => $taskId,
+            'comment' => $request->validated('comment') ?? $request->validated('content'),
             'reply_to' => $request->validated('reply_to'),
             'created_by' => $request->user()->id,
         ]);

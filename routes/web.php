@@ -49,9 +49,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('my-tasks', [TaskController::class, 'myTasks'])->name('tasks.my-tasks');
     Route::resource('tasks', TaskController::class);
     Route::patch('tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.update-status');
+    Route::put('tasks/{task}/status', [TaskController::class, 'updateStatus']);
     Route::post('tasks/reorder', [TaskController::class, 'reorder'])->name('tasks.reorder');
 
     // Task Comments
+    Route::post('tasks/{task}/comments', [TaskCommentController::class, 'store'])->name('tasks.comments.store');
     Route::post('task-comments', [TaskCommentController::class, 'store'])->name('task-comments.store');
     Route::patch('task-comments/{comment}', [TaskCommentController::class, 'update'])->name('task-comments.update');
     Route::delete('task-comments/{comment}', [TaskCommentController::class, 'destroy'])->name('task-comments.destroy');
