@@ -6,23 +6,37 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProjectRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        $teamId = $this->input('team_id');
+        $user = $this->user();
+
+        return $user->teams()->where('teams.id', $teamId)->exists();
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, array<string>>
      */
     public function rules(): array
     {
         return [
-            //
+            'team_id' => ['required', 'uuid', 'exists:teams,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:2000'],
+        ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'team_id.required' => 'Please select a team for this project.',
+            'team_id.exists' => 'The selected team does not exist.',
+            'name.required' => 'Project name is required.',
+            'name.max' => 'Project name cannot exceed 255 characters.',
+            'description.max' => 'Description cannot exceed 2000 characters.',
         ];
     }
 }

@@ -2,27 +2,42 @@
 
 namespace App\Http\Requests\Team;
 
+use App\Enums\TeamRole;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTeamRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        $team = $this->route('team');
+        $user = $this->user();
+
+        return $team->members()
+            ->where('user_id', $user->id)
+            ->whereIn('team_role', [TeamRole::Owner->value, TeamRole::Admin->value])
+            ->exists();
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, array<string>>
      */
     public function rules(): array
     {
         return [
-            //
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:1000'],
+        ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Team name is required.',
+            'name.max' => 'Team name cannot exceed 255 characters.',
+            'description.max' => 'Description cannot exceed 1000 characters.',
         ];
     }
 }

@@ -2,27 +2,43 @@
 
 namespace App\Http\Requests\Project;
 
+use App\Enums\ProjectRole;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProjectRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        $project = $this->route('project');
+        $user = $this->user();
+
+        return $project->members()
+            ->where('user_id', $user->id)
+            ->whereIn('role', [ProjectRole::Lead->value, ProjectRole::TechnicalLead->value])
+            ->exists()
+            || $project->created_by === $user->id;
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, array<string>>
      */
     public function rules(): array
     {
         return [
-            //
+            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:2000'],
+        ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Project name is required.',
+            'name.max' => 'Project name cannot exceed 255 characters.',
+            'description.max' => 'Description cannot exceed 2000 characters.',
         ];
     }
 }
