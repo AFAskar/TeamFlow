@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('project_members', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('project_id');
+            $table->uuid('user_id');
+            $table->string('role');
+            $table->foreign('project_id')->references('id')->on('projects')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
+            $table->softDeletes();
+            $table->unique(['project_id', 'user_id']);
         });
     }
 

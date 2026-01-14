@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('task_comments', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('task_id');
+            $table->text('comment');
+            $table->uuid('reply_to')->nullable();
+            $table->uuid('created_by');
+            $table->foreign('task_id')->references('id')->on('tasks')->cascadeOnDelete();
+            $table->foreign('reply_to')->references('id')->on('task_comments')->nullOnDelete();
+            $table->foreign('created_by')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

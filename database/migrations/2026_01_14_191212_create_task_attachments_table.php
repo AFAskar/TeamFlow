@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('task_attachments', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('user_id');
+            $table->uuid('task_id');
+            $table->string('s3_uri');
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('task_id')->references('id')->on('tasks')->cascadeOnDelete();
             $table->timestamps();
         });
     }

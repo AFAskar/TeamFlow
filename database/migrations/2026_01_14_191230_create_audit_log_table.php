@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('audit_log', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->timestamps();
+            $table->string('action');
+            $table->string('entity_type');
+            $table->uuid('entity_id');
+            $table->json('old_values')->nullable();
+            $table->json('new_values')->nullable();
+            $table->uuid('done_by');
+            $table->timestamp('done_at');
+            $table->foreign('done_by')->references('id')->on('users')->cascadeOnDelete();
+            $table->index(['entity_type', 'entity_id']);
+            $table->index('done_by');
+            $table->index('done_at');
         });
     }
 
