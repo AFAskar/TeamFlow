@@ -17,6 +17,18 @@ use Inertia\Response;
 
 class TeamInviteController extends Controller
 {
+    public function myInvites(Request $request): Response
+    {
+        $invites = TeamInvite::where('invitee_email', $request->user()->email)
+            ->with(['team', 'creator'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
+
+        return Inertia::render('team-invites/index', [
+            'invites' => TeamInviteResource::collection($invites),
+        ]);
+    }
+
     public function index(Request $request, string $teamId): Response
     {
         $invites = TeamInvite::where('team_id', $teamId)
