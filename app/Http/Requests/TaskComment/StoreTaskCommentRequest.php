@@ -9,9 +9,9 @@ class StoreTaskCommentRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        $taskId = $this->input('task_id');
+        $taskId = $this->route('task')?->id ?? $this->input('task_id');
         $user = $this->user();
-        $task = Task::find($taskId);
+        $task = $taskId instanceof Task ? $taskId : Task::find($taskId);
 
         if (! $task) {
             return false;
@@ -26,8 +26,9 @@ class StoreTaskCommentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'task_id' => ['required', 'uuid', 'exists:tasks,id'],
-            'comment' => ['required', 'string', 'max:5000'],
+            'task_id' => ['required_without:task', 'nullable', 'uuid', 'exists:tasks,id'],
+            'comment' => ['required_without:content', 'nullable', 'string', 'max:5000'],
+            'content' => ['required_without:comment', 'nullable', 'string', 'max:5000'],
             'reply_to' => ['nullable', 'uuid', 'exists:task_comments,id'],
         ];
     }
@@ -38,10 +39,9 @@ class StoreTaskCommentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'task_id.required' => 'Task is required.',
             'task_id.exists' => 'The selected task does not exist.',
-            'comment.required' => 'Comment content is required.',
             'comment.max' => 'Comment cannot exceed 5000 characters.',
+            'content.max' => 'Comment cannot exceed 5000 characters.',
             'reply_to.exists' => 'The parent comment does not exist.',
         ];
     }
