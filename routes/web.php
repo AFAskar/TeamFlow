@@ -30,11 +30,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('teams/{team}/dashboard', [DashboardController::class, 'teamDashboard'])->name('teams.dashboard');
 
     // Team Invites
+    Route::get('invites', [TeamInviteController::class, 'myInvites'])->name('invites.index');
     Route::get('teams/{teamId}/invites', [TeamInviteController::class, 'index'])->name('team-invites.index');
     Route::post('team-invites', [TeamInviteController::class, 'store'])->name('team-invites.store');
     Route::get('team-invites/{invite}', [TeamInviteController::class, 'show'])->name('team-invites.show');
-    Route::post('team-invites/{invite}/accept', [TeamInviteController::class, 'accept'])->name('team-invites.accept');
-    Route::post('team-invites/{invite}/decline', [TeamInviteController::class, 'decline'])->name('team-invites.decline');
+    Route::post('invites/{invite}/accept', [TeamInviteController::class, 'accept'])->name('invites.accept');
+    Route::post('invites/{invite}/reject', [TeamInviteController::class, 'decline'])->name('invites.reject');
     Route::post('team-invites/{invite}/revoke', [TeamInviteController::class, 'revoke'])->name('team-invites.revoke');
 
     // Projects
