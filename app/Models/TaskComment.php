@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends Model
+class TaskComment extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
 
@@ -19,15 +18,15 @@ class Project extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'name',
-        'description',
-        'team_id',
+        'task_id',
+        'comment',
+        'reply_to',
         'created_by',
     ];
 
-    public function team(): BelongsTo
+    public function task(): BelongsTo
     {
-        return $this->belongsTo(Team::class, 'team_id');
+        return $this->belongsTo(Task::class, 'task_id');
     }
 
     public function creator(): BelongsTo
@@ -35,15 +34,13 @@ class Project extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function members(): BelongsToMany
+    public function parent(): BelongsTo
     {
-        return $this->belongsToMany(User::class, 'project_members')
-            ->withPivot('role')
-            ->withTimestamps();
+        return $this->belongsTo(TaskComment::class, 'reply_to');
     }
 
-    public function tasks(): HasMany
+    public function replies(): HasMany
     {
-        return $this->hasMany(Task::class, 'project_id');
+        return $this->hasMany(TaskComment::class, 'reply_to');
     }
 }
