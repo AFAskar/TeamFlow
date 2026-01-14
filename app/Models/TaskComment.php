@@ -34,7 +34,7 @@ class TaskComment extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function parent(): BelongsTo
+    public function parentComment(): BelongsTo
     {
         return $this->belongsTo(TaskComment::class, 'reply_to');
     }
