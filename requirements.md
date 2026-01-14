@@ -201,6 +201,8 @@ Table projects{
 
 }
 
+
+// Just Follow the Laravel Default but Add Audit Logs, Soft Deletion and Roles
 Table users {
   id uuid [primary key]
   username varchar
