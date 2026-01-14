@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\TeamRole;
+use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,9 @@ class UserTeamFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory(),
+            'team_id' => Team::factory(),
+            'team_role' => fake()->randomElement(TeamRole::cases()),
         ];
     }
 }
