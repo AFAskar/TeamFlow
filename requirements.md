@@ -229,7 +229,6 @@ Build a RESTful API with the following standards:
 
 - Handle edge cases and error scenarios gracefully
 
-- Feel free to use UI component libraries (Tailwind CSS, shadcn/ui,
-  etc.)
+- use UI component libraries (Tailwind CSS, shadcn/ui,etc.)
 
 Good luck! We're looking for clean, maintainable code that demonstrates your full-stack capabilities.
