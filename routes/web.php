@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LabelController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskCommentController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TeamInviteController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -11,9 +18,48 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    // Dashboard
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Teams
+    Route::resource('teams', TeamController::class);
+    Route::post('teams/{team}/leave', [TeamController::class, 'leave'])->name('teams.leave');
+    Route::post('teams/{team}/transfer-ownership', [TeamController::class, 'transferOwnership'])->name('teams.transfer-ownership');
+    Route::patch('teams/{team}/members/role', [TeamController::class, 'updateMemberRole'])->name('teams.members.update-role');
+    Route::delete('teams/{team}/members', [TeamController::class, 'removeMember'])->name('teams.members.remove');
+    Route::get('teams/{team}/dashboard', [DashboardController::class, 'teamDashboard'])->name('teams.dashboard');
+
+    // Team Invites
+    Route::get('teams/{teamId}/invites', [TeamInviteController::class, 'index'])->name('team-invites.index');
+    Route::post('team-invites', [TeamInviteController::class, 'store'])->name('team-invites.store');
+    Route::get('team-invites/{invite}', [TeamInviteController::class, 'show'])->name('team-invites.show');
+    Route::post('team-invites/{invite}/accept', [TeamInviteController::class, 'accept'])->name('team-invites.accept');
+    Route::post('team-invites/{invite}/decline', [TeamInviteController::class, 'decline'])->name('team-invites.decline');
+    Route::post('team-invites/{invite}/revoke', [TeamInviteController::class, 'revoke'])->name('team-invites.revoke');
+
+    // Projects
+    Route::resource('projects', ProjectController::class);
+    Route::post('projects/{id}/restore', [ProjectController::class, 'restore'])->name('projects.restore');
+    Route::post('projects/{project}/members', [ProjectController::class, 'addMember'])->name('projects.members.add');
+    Route::delete('projects/{project}/members', [ProjectController::class, 'removeMember'])->name('projects.members.remove');
+    Route::get('projects/{project}/kanban', [ProjectController::class, 'kanban'])->name('projects.kanban');
+
+    // Tasks
+    Route::get('my-tasks', [TaskController::class, 'myTasks'])->name('tasks.my-tasks');
+    Route::resource('tasks', TaskController::class);
+    Route::patch('tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.update-status');
+    Route::post('tasks/reorder', [TaskController::class, 'reorder'])->name('tasks.reorder');
+
+    // Task Comments
+    Route::post('task-comments', [TaskCommentController::class, 'store'])->name('task-comments.store');
+    Route::patch('task-comments/{comment}', [TaskCommentController::class, 'update'])->name('task-comments.update');
+    Route::delete('task-comments/{comment}', [TaskCommentController::class, 'destroy'])->name('task-comments.destroy');
+
+    // Labels
+    Route::get('teams/{teamId}/labels', [LabelController::class, 'index'])->name('labels.index');
+    Route::post('labels', [LabelController::class, 'store'])->name('labels.store');
+    Route::patch('labels/{label}', [LabelController::class, 'update'])->name('labels.update');
+    Route::delete('labels/{label}', [LabelController::class, 'destroy'])->name('labels.destroy');
 });
 
 require __DIR__.'/settings.php';
