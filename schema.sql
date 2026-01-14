@@ -1,50 +1,12 @@
 -- // Use DBML to define your database structure
 -- // Docs: https://dbml.dbdiagram.io/docs
 
-enum roles{
-  "Admin" -- can promote and demote users
-  "Manager" -- can create teams and remove users from the team
-  "Member" -- can join teams
-}
-
-enum team_roles{
-  "Owner" -- who created the team
-  "Admin" -- who can invite and remove people from the team
-  "Member" -- no extra permissions
-}
-
-enum project_roles{
-  "Lead"
-  "Technical Lead"
-  "Member"
-}
-enum invite_status {
-  "pending"
-  "accepted"
-  "declined"
-}
-
-enum priority_level{
-  "Critical"
-  "High"
-  "Medium"
-  "Low"
-}
-
-enum task_status{
-  "Done"
-  "Unplanned"
-  "Pending"
-  "In-Progress"
-
-
-}
 
 Table user_teams {
   id uuid [primary key]
   user_id uuid [ref: >users.id]
   team_id uuid [ref: >teams.id]
-  team_role team_roles
+  team_role varchar
   created_at timestamp
   updated_at timestamp
   deleted_at timestamp
@@ -58,7 +20,7 @@ Table project_members{
   id uuid [primary key]
   project_id uuid [ref:> projects.id]
   user_id uuid [ref:> users.id]
-  role project_roles
+  role varchar
   created_at timestamp
   updated_at timestamp
   deleted_at timestamp
@@ -79,7 +41,7 @@ Table team_invites{
   team_id uuid [ref:>teams.id]
   invitee_email varchar -- could be null if they used URLs instead of email
   expiry timestamp
-  status invite_status
+  status varchar
   usage_limit integer
   used_count integer
   created_at timestamp
@@ -95,8 +57,8 @@ Table tasks{
   name varchar
   project_id uuid [ref:> projects.id]
   description varchar
-  status task_status
-  priority priority_level
+  status varchar
+  priority varchar
   due_date timestamp
   position integer
   parent_id uuid [ref:>tasks.id]
@@ -160,7 +122,7 @@ Table projects{
 Table users {
   id uuid [primary key]
   username varchar
-  role roles
+  role varchar
   email varchar [unique]
   email_verified_at timestamp
   password varchar
