@@ -6,23 +6,34 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateLabelRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        $label = $this->route('label');
+        $user = $this->user();
+
+        return $user->teams()->where('teams.id', $label->team_id)->exists();
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, array<string>>
      */
     public function rules(): array
     {
         return [
-            //
+            'name' => ['sometimes', 'required', 'string', 'max:50'],
+            'description' => ['nullable', 'string', 'max:255'],
+        ];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Label name is required.',
+            'name.max' => 'Label name cannot exceed 50 characters.',
+            'description.max' => 'Description cannot exceed 255 characters.',
         ];
     }
 }
