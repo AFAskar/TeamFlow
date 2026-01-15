@@ -1,7 +1,8 @@
 import { Head, Link, useForm, router } from '@inertiajs/react';
-import { CalendarIcon, ClockIcon, MessageSquareIcon, PaperclipIcon, UserIcon } from 'lucide-react';
+import { CalendarIcon, MessageSquareIcon, PaperclipIcon, UserIcon } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 
+import { FileUpload } from '@/components/file-upload';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -158,26 +159,20 @@ export default function ShowTask({ task }: Props) {
                         </Card>
 
                         {/* Attachments */}
-                        {task.attachments && task.attachments.length > 0 && (
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle className="flex items-center gap-2">
-                                        <PaperclipIcon className="h-5 w-5" />
-                                        Attachments ({task.attachments.length})
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="space-y-2">
-                                        {task.attachments.map((attachment: any) => (
-                                            <div key={attachment.id} className="flex items-center gap-2 rounded border p-2">
-                                                <PaperclipIcon className="h-4 w-4" />
-                                                <span className="text-sm">{attachment.original_filename}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        )}
+                        <Card>
+                            <CardHeader>
+                                <CardTitle className="flex items-center gap-2">
+                                    <PaperclipIcon className="h-5 w-5" />
+                                    Attachments ({task.attachments?.length || 0})
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <FileUpload
+                                    taskId={task.id}
+                                    attachments={task.attachments}
+                                />
+                            </CardContent>
+                        </Card>
                     </div>
 
                     {/* Sidebar */}

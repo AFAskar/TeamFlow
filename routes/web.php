@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskAttachmentController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
@@ -57,6 +58,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('task-comments', [TaskCommentController::class, 'store'])->name('task-comments.store');
     Route::patch('task-comments/{comment}', [TaskCommentController::class, 'update'])->name('task-comments.update');
     Route::delete('task-comments/{comment}', [TaskCommentController::class, 'destroy'])->name('task-comments.destroy');
+
+    // Task Attachments
+    Route::post('task-attachments', [TaskAttachmentController::class, 'store'])->name('task-attachments.store');
+    Route::get('task-attachments/{attachment}/download', [TaskAttachmentController::class, 'download'])->name('task-attachments.download');
+    Route::delete('task-attachments/{attachment}', [TaskAttachmentController::class, 'destroy'])->name('task-attachments.destroy');
 
     // Labels
     Route::get('teams/{teamId}/labels', [LabelController::class, 'index'])->name('labels.index');

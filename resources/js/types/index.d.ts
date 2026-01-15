@@ -90,6 +90,7 @@ export interface Task {
     labels?: Label[];
     comments?: TaskComment[];
     comments_count?: number;
+    attachments?: TaskAttachment[];
     attachments_count?: number;
     created_at: string;
     updated_at: string;
@@ -114,6 +115,20 @@ export interface TaskComment {
     replies?: TaskComment[];
     created_at: string;
     updated_at: string;
+}
+
+export interface TaskAttachment {
+    id: string;
+    task_id: string;
+    filename: string;
+    original_filename: string;
+    mime_type: string;
+    size: number;
+    formatted_size: string;
+    url: string;
+    is_image: boolean;
+    user?: User;
+    created_at: string;
 }
 
 export interface TeamInvite {

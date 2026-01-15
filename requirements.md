@@ -241,7 +241,6 @@ Complete the Missing Requirements
 - File Attachments UI - Model exists but upload functionality not built
 - Drag-and-Drop - Kanban UI exists but needs DnD library (e.g., @dnd-kit)
 - Rich Text Editor - Task descriptions are plain text
-- API Documentation - OpenAPI/Scalar not configured
 - Rate Limiting - Not configured in routes
 - Feature Tests - Only auth tests, no controller tests
 - Global Search - Only page-level search

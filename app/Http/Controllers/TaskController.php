@@ -150,7 +150,7 @@ class TaskController extends Controller
             'labels',
             'subtasks.assignee',
             'comments.creator',
-            'attachments',
+            'attachments.user',
         ])->loadCount(['subtasks', 'comments', 'attachments']);
 
         $labels = $task->project->team->labels()->get();

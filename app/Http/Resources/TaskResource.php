@@ -34,6 +34,7 @@ class TaskResource extends JsonResource
             'labels' => LabelResource::collection($this->whenLoaded('labels')),
             'comments' => TaskCommentResource::collection($this->whenLoaded('comments')),
             'comments_count' => $this->whenCounted('comments'),
+            'attachments' => TaskAttachmentResource::collection($this->whenLoaded('attachments')),
             'attachments_count' => $this->whenCounted('attachments'),
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),
