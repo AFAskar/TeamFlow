@@ -238,8 +238,6 @@ Complete the Missing Requirements
 ```md
 ## Missing/Incomplete Items
 
-- Rich Text Editor - Task descriptions are plain text
-- Rate Limiting - Not configured in routes
 - Feature Tests - Only auth tests, no controller tests
 - Global Search - Only page-level search
 - Date Range Filtering - Not implemented
