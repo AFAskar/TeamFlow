@@ -232,3 +232,18 @@ Build a RESTful API with the following standards:
 - use UI component libraries (Tailwind CSS, shadcn/ui,etc.)
 
 Good luck! We're looking for clean, maintainable code that demonstrates your full-stack capabilities.
+
+Complete the Missing Requirements
+
+```md
+## Missing/Incomplete Items
+
+- File Attachments UI - Model exists but upload functionality not built
+- Drag-and-Drop - Kanban UI exists but needs DnD library (e.g., @dnd-kit)
+- Rich Text Editor - Task descriptions are plain text
+- API Documentation - OpenAPI/Scalar not configured
+- Rate Limiting - Not configured in routes
+- Feature Tests - Only auth tests, no controller tests
+- Global Search - Only page-level search
+- Date Range Filtering - Not implemented
+```
