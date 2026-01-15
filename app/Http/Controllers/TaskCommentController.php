@@ -10,6 +10,11 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
+/**
+ * @group Task Comments
+ *
+ * APIs for managing comments on tasks. Comments support threading via reply_to.
+ */
 class TaskCommentController extends Controller
 {
     public function store(StoreTaskCommentRequest $request, ?Task $task = null): JsonResponse|RedirectResponse

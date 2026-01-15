@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @group Dashboard
+ *
+ * APIs for dashboard data. Provides statistics and recent activity for users and teams.
+ */
 class DashboardController extends Controller
 {
     public function index(Request $request): Response

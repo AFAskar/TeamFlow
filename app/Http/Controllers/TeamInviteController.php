@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @group Team Invites
+ *
+ * APIs for managing team invitations. Invite users to join teams and handle invite acceptance/rejection.
+ */
 class TeamInviteController extends Controller
 {
     public function myInvites(Request $request): Response

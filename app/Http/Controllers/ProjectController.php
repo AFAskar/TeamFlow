@@ -18,6 +18,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @group Projects
+ *
+ * APIs for managing projects within teams. Projects contain tasks and have members with different roles.
+ */
 class ProjectController extends Controller
 {
     public function index(Request $request): Response

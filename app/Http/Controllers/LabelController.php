@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @group Labels
+ *
+ * APIs for managing labels. Labels are team-scoped and can be applied to tasks for categorization.
+ */
 class LabelController extends Controller
 {
     public function index(Request $request, string $teamId): Response

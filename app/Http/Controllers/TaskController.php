@@ -20,6 +20,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @group Tasks
+ *
+ * APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+ */
 class TaskController extends Controller
 {
     public function index(Request $request): Response

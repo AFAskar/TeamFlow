@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+/**
+ * @group Teams
+ *
+ * APIs for managing teams. Teams are the organizational unit that contains projects and members.
+ */
 class TeamController extends Controller
 {
     public function index(Request $request): Response
