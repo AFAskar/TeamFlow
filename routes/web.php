@@ -7,6 +7,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskAttachmentController;
 use App\Http\Controllers\TaskCommentController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TaskExportController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TeamInviteController;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,10 @@ Route::middleware(['auth', 'verified', 'throttle:api'])->group(function () {
     Route::patch('tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.update-status');
     Route::put('tasks/{task}/status', [TaskController::class, 'updateStatus']);
     Route::post('tasks/reorder', [TaskController::class, 'reorder'])->name('tasks.reorder');
+
+    // Task Exports
+    Route::get('tasks-export/csv', [TaskExportController::class, 'csv'])->name('tasks.export.csv');
+    Route::get('tasks-export/pdf', [TaskExportController::class, 'pdf'])->name('tasks.export.pdf');
 
     // Task Comments - with comments rate limiting
     Route::middleware('throttle:comments')->group(function () {

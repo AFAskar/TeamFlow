@@ -1,11 +1,17 @@
 import { Head, Link } from '@inertiajs/react';
-import { CalendarDays, Filter, ListTodo, Plus, Search, X } from 'lucide-react';
+import { CalendarDays, Download, FileSpreadsheet, FileText, Filter, ListTodo, Plus, Search, X } from 'lucide-react';
 import { useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -73,6 +79,17 @@ export default function TasksIndex({ tasks, filters }: Props) {
     const hasDateFilter = dueDateFrom || dueDateTo;
     const hasAnyFilter = search || status !== 'all' || priority !== 'all' || hasDateFilter;
 
+    const getExportUrl = (format: 'csv' | 'pdf') => {
+        const params = new URLSearchParams();
+        if (search) params.set('search', search);
+        if (status && status !== 'all') params.set('status', status);
+        if (priority && priority !== 'all') params.set('priority', priority);
+        if (dueDateFrom) params.set('due_date_from', dueDateFrom);
+        if (dueDateTo) params.set('due_date_to', dueDateTo);
+        const queryString = params.toString();
+        return `/tasks-export/${format}${queryString ? `?${queryString}` : ''}`;
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Tasks" />
@@ -82,12 +99,36 @@ export default function TasksIndex({ tasks, filters }: Props) {
                         <h1 className="text-2xl font-bold">All Tasks</h1>
                         <p className="text-muted-foreground">View and manage all tasks across projects</p>
                     </div>
-                    <Button asChild>
-                        <Link href="/tasks/create">
-                            <Plus className="mr-2 h-4 w-4" />
-                            New Task
-                        </Link>
-                    </Button>
+                    <div className="flex items-center gap-2">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline">
+                                    <Download className="mr-2 h-4 w-4" />
+                                    Export
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <DropdownMenuItem asChild>
+                                    <a href={getExportUrl('csv')} download>
+                                        <FileSpreadsheet className="mr-2 h-4 w-4" />
+                                        Export to CSV
+                                    </a>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                    <a href={getExportUrl('pdf')} download>
+                                        <FileText className="mr-2 h-4 w-4" />
+                                        Export to PDF
+                                    </a>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                        <Button asChild>
+                            <Link href="/tasks/create">
+                                <Plus className="mr-2 h-4 w-4" />
+                                New Task
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 {/* Filters */}
