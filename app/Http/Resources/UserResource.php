@@ -28,6 +28,9 @@ class UserResource extends JsonResource
             'two_factor_enabled' => $this->two_factor_confirmed_at !== null,
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),
+            'pivot' => $this->whenPivotLoaded('user_teams', fn () => [
+                'team_role' => $this->pivot->team_role?->value ?? $this->pivot->team_role,
+            ]),
         ];
     }
 }

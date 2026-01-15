@@ -1,4 +1,4 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Edit, FolderOpen, MoreHorizontal, Plus, Trash2, UserMinus, Users } from 'lucide-react';
 import { useState } from 'react';
 
@@ -22,13 +22,14 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem, Team, User } from '@/types';
+import type { BreadcrumbItem, SharedData, Team, User } from '@/types';
 
 interface Props {
     team: Team;
 }
 
 export default function ShowTeam({ team }: Props) {
+    const { auth } = usePage<SharedData>().props;
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [leaveDialogOpen, setLeaveDialogOpen] = useState(false);
     const [removeMemberDialogOpen, setRemoveMemberDialogOpen] = useState(false);
@@ -40,7 +41,8 @@ export default function ShowTeam({ team }: Props) {
         { title: team.name, href: `/teams/${team.id}` },
     ];
 
-    const currentUserRole = team.members?.find((m) => m.pivot?.team_role)?.pivot?.team_role;
+    const currentUser = team.members?.find((m) => m.id === auth.user.id);
+    const currentUserRole = currentUser?.pivot?.team_role;
     const isOwner = currentUserRole === 'Owner';
     const isAdmin = currentUserRole === 'Admin' || isOwner;
 
