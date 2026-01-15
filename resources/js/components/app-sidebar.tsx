@@ -31,12 +31,12 @@ import AppLogo from './app-logo';
 const footerNavItems: NavItem[] = [
     {
         title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        href: 'https://github.com/AFAskar/TeamFlow.git',
         icon: Folder,
     },
     {
         title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
+        href: '/docs',
         icon: BookOpen,
     },
 ];
@@ -88,10 +88,12 @@ export function AppSidebar() {
                                 <Collapsible key={team.id} asChild defaultOpen={false} className="group/collapsible">
                                     <SidebarMenuItem>
                                         <CollapsibleTrigger asChild>
-                                            <SidebarMenuButton tooltip={{ children: team.name }}>
-                                                <Users className="shrink-0" />
-                                                <span className="truncate">{team.name}</span>
-                                                <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                            <SidebarMenuButton tooltip={{ children: team.name }} asChild>
+                                                <Link href={`/teams/${team.id}/dashboard`} prefetch>
+                                                    <Users className="shrink-0" />
+                                                    <span className="truncate">{team.name}</span>
+                                                    <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                                </Link>
                                             </SidebarMenuButton>
                                         </CollapsibleTrigger>
                                         <CollapsibleContent>
@@ -136,10 +138,12 @@ export function AppSidebar() {
                                 <Collapsible key={project.id} asChild defaultOpen={false} className="group/collapsible">
                                     <SidebarMenuItem>
                                         <CollapsibleTrigger asChild>
-                                            <SidebarMenuButton tooltip={{ children: project.name }}>
-                                                <FolderOpen className="shrink-0" />
-                                                <span className="truncate">{project.name}</span>
-                                                <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                            <SidebarMenuButton tooltip={{ children: project.name }} asChild>
+                                                <Link href={`/projects/${project.id}`} prefetch>
+                                                    <FolderOpen className="shrink-0" />
+                                                    <span className="truncate">{project.name}</span>
+                                                    <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                                </Link>
                                             </SidebarMenuButton>
                                         </CollapsibleTrigger>
                                         <CollapsibleContent>
