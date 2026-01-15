@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button';
-import { TaskAttachment } from '@/types';
 import { router } from '@inertiajs/react';
 import { Download, File, FileImage, FileSpreadsheet, FileText, Paperclip, Trash2, Upload, X } from 'lucide-react';
 import { useCallback, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { TaskAttachment } from '@/types';
 
 interface FileUploadProps {
     taskId: string;
@@ -40,7 +41,7 @@ export function FileUpload({ taskId, attachments = [], onUploadComplete }: FileU
         'application/zip',
     ];
 
-    const validateFile = (file: File): string | null => {
+    const validateFile = useCallback((file: File): string | null => {
         if (file.size > maxFileSize) {
             return `File "${file.name}" exceeds maximum size of 10MB.`;
         }
@@ -48,7 +49,7 @@ export function FileUpload({ taskId, attachments = [], onUploadComplete }: FileU
             return `File "${file.name}" has an unsupported file type.`;
         }
         return null;
-    };
+    }, []);
 
     const handleDragOver = useCallback((e: React.DragEvent) => {
         e.preventDefault();
@@ -83,7 +84,7 @@ export function FileUpload({ taskId, attachments = [], onUploadComplete }: FileU
         }
 
         setSelectedFiles((prev) => [...prev, ...validFiles].slice(0, 10));
-    }, []);
+    }, [validateFile]);
 
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         setError(null);

@@ -16,12 +16,13 @@ interface Props {
     task: Task;
 }
 
-const statusColors: Record<string, string> = {
+const _statusColors: Record<string, string> = {
     Unplanned: 'bg-gray-100 text-gray-800',
     Pending: 'bg-yellow-100 text-yellow-800',
     'In-Progress': 'bg-blue-100 text-blue-800',
     Done: 'bg-green-100 text-green-800',
 };
+void _statusColors; // Reserved for future use
 
 const priorityColors: Record<string, string> = {
     Low: 'bg-gray-100 text-gray-600',
@@ -43,7 +44,7 @@ export default function ShowTask({ task }: Props) {
     ];
 
     const handleStatusChange = (status: string) => {
-        setSelectedStatus(status as any);
+        setSelectedStatus(status);
         router.put(`/tasks/${task.id}/status`, { status }, { preserveScroll: true });
     };
 

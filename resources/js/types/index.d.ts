@@ -53,6 +53,7 @@ export interface Team {
     description?: string;
     creator?: User;
     members?: User[];
+    labels?: Label[];
     members_count?: number;
     projects_count?: number;
     created_at: string;

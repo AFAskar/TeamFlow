@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem, Project } from '@/types';
+import type { BreadcrumbItem, Label as LabelType, Project } from '@/types';
 
 interface Props {
     projects: Project[];
@@ -37,7 +37,7 @@ export default function CreateTask({ projects }: Props) {
     });
 
     const selectedProject = projects.find((p) => p.id === data.project_id);
-    const availableLabels = (selectedProject as any)?.team?.labels || [];
+    const availableLabels = selectedProject?.team?.labels || [];
     const availableMembers = selectedProject?.members || [];
 
     const handleSubmit = (e: FormEvent) => {
@@ -168,7 +168,7 @@ export default function CreateTask({ projects }: Props) {
                                     <div className="space-y-2">
                                         <Label>Labels</Label>
                                         <div className="flex flex-wrap gap-4">
-                                            {availableLabels.map((label: any) => (
+                                            {availableLabels.map((label: LabelType) => (
                                                 <div key={label.id} className="flex items-center gap-2">
                                                     <Checkbox
                                                         id={`label-${label.id}`}

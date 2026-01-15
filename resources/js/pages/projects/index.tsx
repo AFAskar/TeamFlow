@@ -1,9 +1,9 @@
 import { Head, Link } from '@inertiajs/react';
 import { FolderOpen, Plus, Users } from 'lucide-react';
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem, PaginatedData, Project } from '@/types';
 

@@ -23,12 +23,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem, Label, Project, Task, User } from '@/types';
+import type { BreadcrumbItem, Project, Task, User } from '@/types';
 
 interface Props {
     project: Project;
     tasks: Task[];
-    labels: Label[];
     members: User[];
 }
 

@@ -30,12 +30,13 @@ const statusColors: Record<string, string> = {
     Done: 'bg-green-100 text-green-800',
 };
 
-const priorityColors: Record<string, string> = {
+const _priorityColors: Record<string, string> = {
     Low: 'bg-gray-100 text-gray-600',
     Medium: 'bg-blue-100 text-blue-600',
     High: 'bg-orange-100 text-orange-600',
     Critical: 'bg-red-100 text-red-600',
 };
+void _priorityColors; // Reserved for future use
 
 export default function Dashboard({ stats, recentTasks, teams, projects, pendingInvitesCount }: Props) {
     const formatDate = (date: string | null) => {
