@@ -48,7 +48,7 @@ test('authenticated users can export tasks to CSV', function () {
 
     $response->assertOk();
     $response->assertHeader('Content-Type', 'text/csv; charset=utf-8');
-    expect($response->headers->get('Content-Disposition'))->toContain('attachment; filename="tasks-export-');
+    expect($response->headers->get('Content-Disposition'))->toContain('attachment; filename="global-tasks-export-');
 });
 
 test('CSV export contains task data', function () {
@@ -90,6 +90,7 @@ test('CSV export respects status filter', function () {
     $content = $response->streamedContent();
     expect($content)->toContain('In Progress Task');
     expect($content)->not->toContain('Done Task');
+    expect($response->headers->get('Content-Disposition'))->toContain('attachment; filename="global-tasks-export-');
 });
 
 // PDF Export Tests
