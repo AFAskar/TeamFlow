@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem, PaginatedData, Task, TaskStatus } from '@/types';
+import type { BreadcrumbItem, PaginatedData, Task } from '@/types';
 
 interface Props {
     tasks: PaginatedData<Task>;

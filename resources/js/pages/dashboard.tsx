@@ -1,7 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import { CheckCircleIcon, ClipboardListIcon, ClockIcon, FolderIcon, PlusIcon, UsersIcon } from 'lucide-react';
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -38,7 +37,15 @@ const _priorityColors: Record<string, string> = {
 };
 void _priorityColors; // Reserved for future use
 
-export default function Dashboard({ stats, recentTasks, teams, projects, pendingInvitesCount }: Props) {
+const defaultStats: TaskStats = {
+    total: 0,
+    completed: 0,
+    in_progress: 0,
+    pending: 0,
+    overdue: 0,
+};
+
+export default function Dashboard({ stats = defaultStats, recentTasks = [], teams = [], projects = [], pendingInvitesCount = 0 }: Props) {
     const formatDate = (date: string | null) => {
         if (!date) return null;
         return new Date(date).toLocaleDateString('en-US', {

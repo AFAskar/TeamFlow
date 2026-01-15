@@ -45,7 +45,7 @@ const priorityColors: Record<string, string> = {
     'Low': 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100',
 };
 
-export default function ShowProject({ project, tasks, labels, members }: Props) {
+export default function ShowProject({ project, tasks, members }: Props) {
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
     const breadcrumbs: BreadcrumbItem[] = [

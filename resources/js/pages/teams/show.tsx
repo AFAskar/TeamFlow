@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Edit, FolderOpen, MoreHorizontal, Plus, Settings, Trash2, UserMinus, Users } from 'lucide-react';
+import { Edit, FolderOpen, MoreHorizontal, Plus, Trash2, UserMinus, Users } from 'lucide-react';
 import { useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';

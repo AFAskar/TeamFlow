@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { CheckCircleIcon, ClipboardListIcon, ClockIcon, FolderIcon, PlusIcon, UsersIcon, SettingsIcon } from 'lucide-react';
+import { CheckCircleIcon, ClipboardListIcon, ClockIcon, FolderIcon, PlusIcon, SettingsIcon } from 'lucide-react';
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';

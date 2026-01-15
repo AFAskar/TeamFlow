@@ -1,7 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import { ClipboardListIcon, PlusIcon } from 'lucide-react';
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';

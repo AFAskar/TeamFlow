@@ -49,7 +49,7 @@ export function FileUpload({ taskId, attachments = [], onUploadComplete }: FileU
             return `File "${file.name}" has an unsupported file type.`;
         }
         return null;
-    }, []);
+    }, [maxFileSize, allowedTypes]);
 
     const handleDragOver = useCallback((e: React.DragEvent) => {
         e.preventDefault();
