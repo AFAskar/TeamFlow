@@ -47,7 +47,7 @@ class ProjectController extends Controller
             ->get();
 
         return Inertia::render('projects/create', [
-            'teams' => TeamResource::collection($teams),
+            'teams' => TeamResource::collection($teams)->resolve(),
         ]);
     }
 
@@ -98,10 +98,10 @@ class ProjectController extends Controller
         $labels = $project->team->labels()->get();
 
         return Inertia::render('projects/show', [
-            'project' => new ProjectResource($project),
-            'tasks' => TaskResource::collection($project->tasks),
-            'labels' => LabelResource::collection($labels),
-            'members' => UserResource::collection($project->members),
+            'project' => (new ProjectResource($project))->resolve(),
+            'tasks' => TaskResource::collection($project->tasks)->resolve(),
+            'labels' => LabelResource::collection($labels)->resolve(),
+            'members' => UserResource::collection($project->members)->resolve(),
         ]);
     }
 
@@ -110,7 +110,7 @@ class ProjectController extends Controller
         $this->authorizeProjectAccess($project, $request->user());
 
         return Inertia::render('projects/edit', [
-            'project' => new ProjectResource($project->load('team')),
+            'project' => (new ProjectResource($project->load('team')))->resolve(),
         ]);
     }
 
@@ -255,10 +255,10 @@ class ProjectController extends Controller
         $members = $project->members()->get();
 
         return Inertia::render('projects/kanban', [
-            'project' => new ProjectResource($project),
-            'tasks' => TaskResource::collection($project->tasks),
-            'labels' => LabelResource::collection($labels),
-            'members' => UserResource::collection($members),
+            'project' => (new ProjectResource($project))->resolve(),
+            'tasks' => TaskResource::collection($project->tasks)->resolve(),
+            'labels' => LabelResource::collection($labels)->resolve(),
+            'members' => UserResource::collection($members)->resolve(),
         ]);
     }
 

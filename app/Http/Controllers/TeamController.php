@@ -77,7 +77,7 @@ class TeamController extends Controller
             ->loadCount(['members', 'projects']);
 
         return Inertia::render('teams/show', [
-            'team' => new TeamResource($team),
+            'team' => (new TeamResource($team))->resolve(),
         ]);
     }
 
@@ -86,7 +86,7 @@ class TeamController extends Controller
         $this->authorizeTeamAccess($team, [TeamRole::Owner, TeamRole::Admin]);
 
         return Inertia::render('teams/edit', [
-            'team' => new TeamResource($team),
+            'team' => (new TeamResource($team))->resolve(),
         ]);
     }
 

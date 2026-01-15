@@ -80,9 +80,9 @@ class DashboardController extends Controller
             ]);
 
         return Inertia::render('dashboard', [
-            'myTasks' => TaskResource::collection($myTasks),
-            'teams' => TeamResource::collection($teams),
-            'projects' => ProjectResource::collection($projects),
+            'myTasks' => TaskResource::collection($myTasks)->resolve(),
+            'teams' => TeamResource::collection($teams)->resolve(),
+            'projects' => ProjectResource::collection($projects)->resolve(),
             'taskStats' => $taskStats,
             'recentActivity' => $recentActivity,
         ]);
@@ -91,9 +91,9 @@ class DashboardController extends Controller
     public function teamDashboard(Request $request, string $teamId): Response
     {
         $user = $request->user();
-        $isMember = $user->teams()->where('teams.id', $teamId)->exists();
+        $team = $user->teams()->where('teams.id', $teamId)->with('members')->first();
 
-        if (! $isMember) {
+        if (! $team) {
             abort(403, 'You are not a member of this team.');
         }
 
@@ -112,21 +112,27 @@ class DashboardController extends Controller
             'pending' => Task::whereIn('project_id', $projectIds)->where('status', TaskStatus::Pending)->count(),
         ];
 
-        $memberProductivity = Task::whereIn('project_id', $projectIds)
-            ->where('status', TaskStatus::Done)
-            ->whereNotNull('assigned_to')
-            ->selectRaw('assigned_to, COUNT(*) as completed_count')
-            ->groupBy('assigned_to')
-            ->with('assignee:id,username,avatar_token_url')
-            ->orderByDesc('completed_count')
-            ->limit(10)
+        $recentTasks = Task::whereIn('project_id', $projectIds)
+            ->with(['project', 'labels', 'assignee'])
+            ->orderByDesc('updated_at')
+            ->limit(5)
             ->get();
 
+        $memberStats = $team->members->map(function ($member) use ($projectIds) {
+            return [
+                'user' => $member,
+                'task_count' => Task::whereIn('project_id', $projectIds)
+                    ->where('assigned_to', $member->id)
+                    ->count(),
+            ];
+        })->sortByDesc('task_count')->values()->take(10);
+
         return Inertia::render('teams/dashboard', [
-            'teamId' => $teamId,
-            'projects' => ProjectResource::collection($projects),
-            'taskStats' => $taskStats,
-            'memberProductivity' => $memberProductivity,
+            'team' => (new TeamResource($team))->resolve(),
+            'stats' => $taskStats,
+            'recentTasks' => TaskResource::collection($recentTasks)->resolve(),
+            'projects' => ProjectResource::collection($projects)->resolve(),
+            'memberStats' => $memberStats,
         ]);
     }
 }

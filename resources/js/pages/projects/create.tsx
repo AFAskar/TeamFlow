@@ -20,7 +20,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Create Project', href: '/projects/create' },
 ];
 
-export default function CreateProject({ teams }: Props) {
+export default function CreateProject({ teams = [] }: Props) {
     const urlParams = new URLSearchParams(window.location.search);
     const defaultTeamId = urlParams.get('team_id') || '';
 

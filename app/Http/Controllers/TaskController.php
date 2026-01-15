@@ -91,7 +91,7 @@ class TaskController extends Controller
             ->get();
 
         return Inertia::render('tasks/create', [
-            'projects' => ProjectResource::collection($projects),
+            'projects' => ProjectResource::collection($projects)->resolve(),
         ]);
     }
 
@@ -157,9 +157,9 @@ class TaskController extends Controller
         $members = $task->project->members()->get();
 
         return Inertia::render('tasks/show', [
-            'task' => new TaskResource($task),
-            'labels' => LabelResource::collection($labels),
-            'members' => UserResource::collection($members),
+            'task' => (new TaskResource($task))->resolve(),
+            'labels' => LabelResource::collection($labels)->resolve(),
+            'members' => UserResource::collection($members)->resolve(),
         ]);
     }
 
@@ -172,9 +172,9 @@ class TaskController extends Controller
         $members = $task->project->members()->get();
 
         return Inertia::render('tasks/edit', [
-            'task' => new TaskResource($task),
-            'labels' => LabelResource::collection($task->project->team->labels),
-            'members' => UserResource::collection($members),
+            'task' => (new TaskResource($task))->resolve(),
+            'labels' => LabelResource::collection($task->project->team->labels)->resolve(),
+            'members' => UserResource::collection($members)->resolve(),
         ]);
     }
 
@@ -228,7 +228,7 @@ class TaskController extends Controller
 
         return response()->json([
             'success' => true,
-            'task' => new TaskResource($task->fresh(['assignee', 'labels'])),
+            'task' => (new TaskResource($task->fresh(['assignee', 'labels'])))->resolve(),
         ]);
     }
 
