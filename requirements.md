@@ -232,11 +232,3 @@ Build a RESTful API with the following standards:
 - use UI component libraries (Tailwind CSS, shadcn/ui,etc.)
 
 Good luck! We're looking for clean, maintainable code that demonstrates your full-stack capabilities.
-
-Complete the Missing Requirements
-
-```md
-## Missing/Incomplete Items
-
-- Feature Tests - Only auth tests, no controller tests
-```
