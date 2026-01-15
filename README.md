@@ -73,7 +73,7 @@
 - **Audit Logging** - Track all user actions for accountability
 - **Responsive Design** - Works on desktop, tablet, and mobile
 - **Dark Mode** - Toggle between light and dark themes
-- **Real-time Updates** - Inertia.js powered SPA experience
+- **SPA Experience** - Seamless navigation with Inertia.js
 - **API Documentation** - Auto-generated API docs with Scribe
 
 ### Developer Experience
