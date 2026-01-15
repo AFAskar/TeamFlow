@@ -147,22 +147,11 @@ export function AppSidebar() {
                                                 <SidebarMenuSubItem>
                                                     <SidebarMenuSubButton
                                                         asChild
-                                                        isActive={urlIsActive(`/projects/${project.id}/dashboard`)}
-                                                    >
-                                                        <Link href={`/projects/${project.id}/dashboard`} prefetch>
-                                                            <LayoutDashboard className="h-4 w-4" />
-                                                            <span>Dashboard</span>
-                                                        </Link>
-                                                    </SidebarMenuSubButton>
-                                                </SidebarMenuSubItem>
-                                                <SidebarMenuSubItem>
-                                                    <SidebarMenuSubButton
-                                                        asChild
                                                         isActive={urlIsActive(`/projects/${project.id}`)}
                                                     >
                                                         <Link href={`/projects/${project.id}`} prefetch>
                                                             <FolderOpen className="h-4 w-4" />
-                                                            <span>Project View</span>
+                                                            <span>Overview</span>
                                                         </Link>
                                                     </SidebarMenuSubButton>
                                                 </SidebarMenuSubItem>
