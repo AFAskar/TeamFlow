@@ -130,7 +130,7 @@ Build a RESTful API with the following standards:
 
 - Rate limiting
 
-- API documentation (Swagger/OpenAPI or similar)
+- API documentation (OpenAPI)
 
 ## Frontend Requirements
 
@@ -213,7 +213,7 @@ Build a RESTful API with the following standards:
 
 3. **Documentation** - README with setup instructions
 
-4. **API Documentation** - Postman collection or Swagger docs
+4. **API Documentation** - Scalar
 
 5. **Demo** - Brief video walkthrough or deployed demo (optional)
 
