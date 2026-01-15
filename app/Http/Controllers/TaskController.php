@@ -200,7 +200,9 @@ class TaskController extends Controller
             'done_at' => now(),
         ]);
 
-        return back()->with('success', 'Task updated successfully.');
+        return redirect()
+            ->route('tasks.show', $task)
+            ->with('success', 'Task updated successfully.');
     }
 
     public function updateStatus(UpdateTaskStatusRequest $request, Task $task): JsonResponse
