@@ -1,0 +1,860 @@
+name: Tasks
+description: |-
+
+  APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: my-tasks
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IkNYcGg5N2FqVTVlSEkvL2dmcHhCV0E9PSIsInZhbHVlIjoicmhTSkhFMkNOdWF1RENWamI5cVp1Y09aaXRlZ3V3ZWpINVZwd1AxdjlKaXpacG03a2YrNk53S3I2SFRzUFE3ajlJZDdvVklPL1Q5Qnc1UEZSaXpXNGlDQnY3emh1QmlucHpUTTViSzlEWjBvaG9FNXo5MlQ1Ulg5WnpsWkRJbDQiLCJtYWMiOiI1NDlkYzRhNjU0NTEzZDc3MmY5MzE0MTMzMjI4MTJkY2QzNmU1Y2Y3ZGUyYzFmYzUyNzJmOTQyNzc3Y2RmYjQzIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6ImJzeEczMlpCT2J3UEtXVXhsVmNsdXc9PSIsInZhbHVlIjoiUS8zQTdFUlQ2dlZSV2NVNy9obnBQZStmSnhlaHUvNXRUSXBBRDdPY1FJODc3RC96RDZtTVBFOE1xQ2pUV3RxbTJNek5pYjhrejlFS0NCbDhhWmtpVURaRFRpMmhVaHhtdVlDelZTR3R6Z3kxREQwMHhCWEROUHRMQU8wSUFYSy8iLCJtYWMiOiI4ZjExN2RjMWM4MDBkOTFmZGVkZDUzYWEyMzBmY2NiMzc4NTA4ZTJhNzM5YjJjNThiMTdjZDVjMjk5ZDc3OTA3IiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: tasks
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6ImRUNWx4WW9WUFNuUGxhYnozU1BDclE9PSIsInZhbHVlIjoiSHJ3bW9kR3dRWHYyZ3ZVaFdWZytVZnQyWWJ6N0poazdOU3ZkV1RzMmtkem13Nm9BczFBNVMzZHZyTDdvRWFWcHRKeWthQVVKclQzQjgzWG9XQmVBVzFoVndOQmp4MmpxLzBrMjZIL3R0LzM5NnBEdUIyWVljODVCZnZJYUdqeGEiLCJtYWMiOiI2NGUwMjcyMDliYzUxN2E2NzcwMjk5NThjNjE2MGEwNzgzZmYwOTI4NTRkZjFkOTY5NzM3ZWI3NTI0MTE3NGVmIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IkpaNWh6dUNRdXMreElnWm9wMDNCUlE9PSIsInZhbHVlIjoieVlYSTJDeVVLeGxrbU9WeVJxNWpZYzltM0xBbllwc0xKY2NVVHRKZEZ6clJDV3FwYmpERlVuQ3JQK2ZvNTJuajZSUG1CRGowaHY5eFh0T2tubkxMTDF4UVQ1K3NOTm5iTjJmQmxOK3dKWUxQVXFyYXJtNHc0Vm5nd3d0K01KRG8iLCJtYWMiOiIzMDIwOGRiYjRkM2JjODQyOTFiODUwYzI5YThlYWUyY2JhZjYxMDViYmMzNmRiNWJjMGVmNGNiMTUxY2Y5MmM0IiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: tasks/create
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IkVtZHhzSm51SFExS2g1YUZhRTBnalE9PSIsInZhbHVlIjoiaTBNYld4aFE2ektsdlZtam9XZTRtL0dqek5IY3I5MVJ3MVZVNEVnS28rcVlWbWhYVXhPSEduWjg2OFFwWitvTGZQWWFETEFoSVF5QmUxQmI4MXkrK0RDZGdBUlg0UEdHeFdod3BmSUhMZ3NWSVNGUkVGdkdWT2NEcWpsZStWUzgiLCJtYWMiOiJmZWZlNDY5MDAwMDZkM2FmYjNkZDA2NGYyNWVjMGJmODYyNGRhMDM4MjY1NjliYTVlZGFlNzZkNjc4NTkwMTI0IiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6InNUckRRS0d1cHFXc1cwYTJjY3EvVkE9PSIsInZhbHVlIjoiNUwyb1M3TDNtN1pYZG1uRkNhcldTRTBMRGZGbG01N2tNMkNwUXdSSGRFaFpVUTc0QWtlUDNvakpzeTJ2QURicjgvaFRpL0RmVnNZdDNVS2IyNVRQOUJURWhZQVk3VUc3Ukk3SlZMQVY4ZW5sUDIxdzNqQXNTQm83UWcyR0dmUWQiLCJtYWMiOiI5YzExZGY4NzYzMjY5MWIyMjhjMGM0MjkzMGJiMjA0YzQ4ZDI1MWE2MWQ5Y2QyOGQ4YjI0MDM2MDE2MjhmODlmIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: tasks
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      project_id:
+        custom: []
+        name: project_id
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the projects table.'
+        required: true
+        example: 6ff8f7f6-1eb3-3525-be4a-3932c805afed
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Must not be greater than 5000 characters.'
+        required: false
+        example: 'Quos velit et fugiat sunt nihil accusantium harum.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Pending
+        type: string
+        enumValues:
+          - Done
+          - Unplanned
+          - Pending
+          - In-Progress
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      priority:
+        custom: []
+        name: priority
+        description: ''
+        required: false
+        example: High
+        type: string
+        enumValues:
+          - Low
+          - Medium
+          - High
+          - Critical
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      due_date:
+        custom: []
+        name: due_date
+        description: 'Must be a valid date. Must be a date after or equal to <code>today</code>.'
+        required: false
+        example: '2052-02-08'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      assigned_to:
+        custom: []
+        name: assigned_to
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the users table.'
+        required: false
+        example: a4855dc5-0acb-33c3-b921-f4291f719ca0
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the tasks table.'
+        required: false
+        example: c90237e9-ced5-3af6-88ea-84aeaa148878
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      labels:
+        custom: []
+        name: labels
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the labels table.'
+        required: false
+        example:
+          - a1a0a47d-e8c3-3cf0-8e6e-c1ff9dca5d1f
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      project_id: 6ff8f7f6-1eb3-3525-be4a-3932c805afed
+      name: g
+      description: 'Quos velit et fugiat sunt nihil accusantium harum.'
+      status: Pending
+      priority: High
+      due_date: '2052-02-08'
+      assigned_to: a4855dc5-0acb-33c3-b921-f4291f719ca0
+      parent_id: c90237e9-ced5-3af6-88ea-84aeaa148878
+      labels:
+        - a1a0a47d-e8c3-3cf0-8e6e-c1ff9dca5d1f
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'tasks/{id}'
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the task.'
+        required: true
+        example: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6ImpNbnplTkJWcTNOeUxVakU4M1R3WVE9PSIsInZhbHVlIjoiclpoUGZlL2hrR2lJVUl5RE01L3JzUXBSZkxqTDVwdklNNDkyc29hT2FzaUd2UGVVdWR3NWxCT3NscHFZSjZLSTdTSHdOVHlmcFZPdTc3QWxWU1NzVXlsV3JFV2t0bGdUaVlONGdBUG1RaW01NmNsaDVGVDdlRnMxQS96VFpXNzciLCJtYWMiOiI3ZDMyOGU4NWQwNWY0ODZjNTQyYWE2ZDhjZDU5ZjNjNGFmOWViNzg3ZjMyMmJiMjc0NDE3MjhkYzg5ZDY3ZDQ5IiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IlhQUXpISTZWY3NXN0g1dFNqNWp6RXc9PSIsInZhbHVlIjoiTW5pOGU4VTM2dHpiSTdSM1o5SysrUStKVnBvV2E2UURQa3lMN1dOZFBjM0lFRnJJUFgwQXMydlRSdTV6WVd3RW9rYlVmRnhETElZQmFKS3NpUklpVk9HdnBrWnFEZEI3Ky93MWJrUUFqMitGOW93SU55MXBFQ2NQdnNoM1JUOTgiLCJtYWMiOiIzOWQyNjJjNDlmYjViZGEwNjY1MWE4Njk4OGNkNTcwZTVlODU2ODVmZjQwOThjODI2N2Y3NDg2NDg1ZmUwYTUwIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'tasks/{task_id}/edit'
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      task_id:
+        custom: []
+        name: task_id
+        description: 'The ID of the task.'
+        required: true
+        example: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      task_id: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IjZYcXNISjRPQllEMkZidHY1VWp0VXc9PSIsInZhbHVlIjoiWkRrMFBmZkNwSEZqNk9uYnBuVlZ6NkVHTXlGeS9TMGxJa1I4SU5jenFqL05OZXN3bnMrNlE2T2gzajdDdkNjNFFOV3RLSGpmN3pRVnNWdGVId21SUVc2aXVyRkdRekc4WjZCMFkyME14M2FYd1ZuMGlmT2s3Zm5nWTlHMHpGTVoiLCJtYWMiOiI3ZjdjZmJlYjM3MDg2NDk5MzdmNzQzZGY1NGE3MGFmN2VlMmVjNmRiNGUxYzY5YWVkNGY2OGZiYmQ4ZmY3YzFiIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6Ik5aL1diczRIMU5tU3N5d1JhMm9YZ1E9PSIsInZhbHVlIjoiQ3N2bEdhNTBwYTByVWVWdXRTN3R6WS90WlI1VDlmUCt6ZHU3OERydXluVStMZFVSTjhEV3pEWFNFTjM5RjJXT0MyOW1vMGIxWWl5aHBsUFFiSWpuMEJTZ0hLYVkyUTZsQ1lhbXNYNUtocTJqZVZhZFF5amxhZHFEUXYybHlJN2UiLCJtYWMiOiIyN2E2ZWNiNjE3YzI4MDdkMDVmNWJhOWRkOTJiMjZmNGJjNjA0MGUyMWE4OWVjM2ZiMTJiYTEyY2UzMTgwODhlIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'tasks/{id}'
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the task.'
+        required: true
+        example: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        custom: []
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: 'Must not be greater than 5000 characters.'
+        required: false
+        example: 'Et animi quos velit et fugiat.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: false
+        example: Done
+        type: string
+        enumValues:
+          - Done
+          - Unplanned
+          - Pending
+          - In-Progress
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      priority:
+        custom: []
+        name: priority
+        description: ''
+        required: false
+        example: High
+        type: string
+        enumValues:
+          - Low
+          - Medium
+          - High
+          - Critical
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      due_date:
+        custom: []
+        name: due_date
+        description: 'Must be a valid date.'
+        required: false
+        example: '2026-01-15T14:03:34'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      assigned_to:
+        custom: []
+        name: assigned_to
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the users table.'
+        required: false
+        example: 5707ca55-f609-3528-be8b-1baeaee1567e
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the tasks table.'
+        required: false
+        example: 947170af-7488-3f30-a16d-723355a9502f
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      labels:
+        custom: []
+        name: labels
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the labels table.'
+        required: false
+        example:
+          - cd1eb1ea-4697-3b9a-9dd0-988044a83af6
+        type: 'string[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      name: b
+      description: 'Et animi quos velit et fugiat.'
+      status: Done
+      priority: High
+      due_date: '2026-01-15T14:03:34'
+      assigned_to: 5707ca55-f609-3528-be8b-1baeaee1567e
+      parent_id: 947170af-7488-3f30-a16d-723355a9502f
+      labels:
+        - cd1eb1ea-4697-3b9a-9dd0-988044a83af6
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'tasks/{id}'
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the task.'
+        required: true
+        example: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PATCH
+    uri: 'tasks/{task_id}/status'
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      task_id:
+        custom: []
+        name: task_id
+        description: 'The ID of the task.'
+        required: true
+        example: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      task_id: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: true
+        example: Done
+        type: string
+        enumValues:
+          - Done
+          - Unplanned
+          - Pending
+          - In-Progress
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      position:
+        custom: []
+        name: position
+        description: 'Must be at least 0.'
+        required: false
+        example: 27
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      status: Done
+      position: 27
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'tasks/{task_id}/status'
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      task_id:
+        custom: []
+        name: task_id
+        description: 'The ID of the task.'
+        required: true
+        example: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      task_id: 019bbe58-dced-720b-99bb-f4b0c2da5e33
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      status:
+        custom: []
+        name: status
+        description: ''
+        required: true
+        example: Done
+        type: string
+        enumValues:
+          - Done
+          - Unplanned
+          - Pending
+          - In-Progress
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      position:
+        custom: []
+        name: position
+        description: 'Must be at least 0.'
+        required: false
+        example: 27
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      status: Done
+      position: 27
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: tasks/reorder
+    metadata:
+      custom: []
+      groupName: Tasks
+      groupDescription: |-
+
+        APIs for managing tasks within projects. Tasks support status tracking, priority levels, due dates, and assignments.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      tasks:
+        custom: []
+        name: tasks
+        description: 'Must have at least 1 items.'
+        required: true
+        example:
+          - []
+        type: 'object[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'tasks[].id':
+        custom: []
+        name: 'tasks[].id'
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the tasks table.'
+        required: true
+        example: 6ff8f7f6-1eb3-3525-be4a-3932c805afed
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'tasks[].position':
+        custom: []
+        name: 'tasks[].position'
+        description: 'Must be at least 0.'
+        required: true
+        example: 84
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      'tasks[].status':
+        custom: []
+        name: 'tasks[].status'
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      tasks:
+        -
+          id: 6ff8f7f6-1eb3-3525-be4a-3932c805afed
+          position: 84
+          status: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null

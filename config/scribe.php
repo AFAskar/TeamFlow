@@ -11,14 +11,24 @@ use function Knuckles\Scribe\Config\removeStrategies;
 
 return [
     // The HTML <title> for the generated documentation.
-    'title' => config('app.name').' API Documentation',
+    'title' => 'TeamFlow API Documentation',
 
     // A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
-    'description' => '',
+    'description' => 'TeamFlow is a comprehensive team project management system that helps teams collaborate effectively. Manage teams, projects, tasks, labels, and team invites with our powerful API.',
 
     // Text to place in the "Introduction" section, right after the `description`. Markdown and HTML are supported.
     'intro_text' => <<<'INTRO'
-        This documentation aims to provide all the information you need to work with our API.
+        Welcome to the TeamFlow API documentation. This API powers a comprehensive team project management system designed for modern teams.
+
+        ## Features
+        - **Team Management**: Create and manage teams, invite members, assign roles
+        - **Project Management**: Organize work into projects with Kanban boards
+        - **Task Management**: Create, assign, and track tasks with priorities and statuses
+        - **Labels**: Organize tasks with customizable color-coded labels
+        - **Comments**: Collaborate on tasks with threaded comments
+
+        ## Authentication
+        TeamFlow uses session-based authentication with Laravel Fortify. All API endpoints require authentication unless otherwise noted.
 
         <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
         You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
@@ -33,7 +43,7 @@ return [
         [
             'match' => [
                 // Match only routes whose paths match this pattern (use * as a wildcard to match any characters). Example: 'users/*'.
-                'prefixes' => ['api/*'],
+                'prefixes' => ['*'],
 
                 // Match only routes whose domains match this pattern (use * as a wildcard to match any characters). Example: 'api.*'.
                 'domains' => ['*'],
@@ -46,7 +56,31 @@ return [
 
             // Exclude these routes even if they matched the rules above.
             'exclude' => [
-                // 'GET /health', 'admin.*'
+                // Home page
+                'GET /',
+                // Authentication & Settings (handled by Fortify/dedicated pages)
+                'settings',
+                'settings/*',
+                // Auth routes (Fortify)
+                'login',
+                'logout',
+                'register',
+                'forgot-password',
+                'reset-password/*',
+                'email/verify',
+                'email/verify/*',
+                'email/verification-notification',
+                'two-factor-challenge',
+                // User profile from Fortify
+                'user/*',
+                // Scribe docs
+                'scribe',
+                'docs',
+                'docs/*',
+                // Internal routes
+                '_boost/*',
+                'up',
+                'storage/*',
             ],
         ],
     ],
@@ -105,17 +139,18 @@ return [
     // How is your API authenticated? This information will be used in the displayed docs, generated examples and response calls.
     'auth' => [
         // Set this to true if ANY endpoints in your API use authentication.
-        'enabled' => false,
+        'enabled' => true,
 
         // Set this to true if your API should be authenticated by default. If so, you must also set `enabled` (above) to true.
         // You can then use @unauthenticated or @authenticated on individual endpoints to change their status from the default.
-        'default' => false,
+        'default' => true,
 
         // Where is the auth value meant to be sent in a request?
-        'in' => AuthIn::BEARER->value,
+        // For session-based auth, we use header with X-XSRF-TOKEN
+        'in' => AuthIn::HEADER->value,
 
         // The name of the auth parameter (e.g. token, key, apiKey) or header (e.g. Authorization, Api-Key).
-        'name' => 'key',
+        'name' => 'X-XSRF-TOKEN',
 
         // The value of the parameter to be used by Scribe to authenticate response calls.
         // This will NOT be included in the generated documentation. If empty, Scribe will use a random value.
@@ -123,10 +158,10 @@ return [
 
         // Placeholder your users will see for the auth parameter in the example requests.
         // Set this to null if you want Scribe to use a random value as placeholder instead.
-        'placeholder' => '{YOUR_AUTH_KEY}',
+        'placeholder' => '{XSRF_TOKEN}',
 
         // Any extra authentication-related info for your users. Markdown and HTML are supported.
-        'extra_info' => 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.',
+        'extra_info' => 'TeamFlow uses session-based authentication with CSRF protection. First, make a GET request to `/sanctum/csrf-cookie` to obtain a CSRF token, then include it in the `X-XSRF-TOKEN` header for all subsequent requests.',
     ],
 
     // Example requests for each endpoint will be shown in each of these languages.
@@ -173,13 +208,23 @@ return [
 
     'groups' => [
         // Endpoints which don't have a @group will be placed in this default group.
-        'default' => 'Endpoints',
+        'default' => 'Other Endpoints',
 
         // By default, Scribe will sort groups alphabetically, and endpoints in the order their routes are defined.
         // You can override this by listing the groups, subgroups and endpoints here in the order you want them.
         // See https://scribe.knuckles.wtf/blog/laravel-v4#easier-sorting and https://scribe.knuckles.wtf/laravel/reference/config#order for details
         // Note: does not work for `external` docs types
-        'order' => [],
+        'order' => [
+            'Dashboard',
+            'Teams',
+            'Team Members',
+            'Team Invites',
+            'Projects',
+            'Project Members',
+            'Tasks',
+            'Task Comments',
+            'Labels',
+        ],
     ],
 
     // Custom logo path. This will be used as the value of the src attribute for the <img> tag,

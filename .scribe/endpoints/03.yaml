@@ -1,0 +1,399 @@
+name: 'Team Invites'
+description: |-
+
+  APIs for managing team invitations. Invite users to join teams and handle invite acceptance/rejection.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: invites
+    metadata:
+      custom: []
+      groupName: 'Team Invites'
+      groupDescription: |-
+
+        APIs for managing team invitations. Invite users to join teams and handle invite acceptance/rejection.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IkJIbzkzOUlHbDRwRUtxUEJwaCtMYXc9PSIsInZhbHVlIjoiMkJET0E4b3BkTWVlNlBIY3JYdndIbVVCUzA4V2pDV25qY3BBdm1YdkppcWVLM3AzcXViS3AyWUxsckFlWDJFSS82TktOcTY2bUJCQ1oraU1Lc1RVeE41bEU1QllMSjdKMmZxY3dnQnJ4Z2JhNHhQVzQ2YUNDRXdGdGZ0TEV4VTMiLCJtYWMiOiIxNzJmN2VjMTE5MWJkOWM3Y2U4ZWJlNDE1MjhlYTAzNjkyMTQ3MDcwOGMxMmYxMzZlNDE1NTJmOWM4ZmY5MjAzIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6ImtrNVIrS0VjWnBydzR0YlBVc1lySkE9PSIsInZhbHVlIjoiYWNCdVZQSFdxK2s2eFphcHB3VGRZaVByblB6YnpWQmY0OGE5amljWi9wdkVzV09vcHBBSUdhcWg1QWVZQ012YWRBaVJ3bytCMG8yL3lPeDRpNTFiS0pjQmFQYUZKMXdBQ2VLUjdiRG1iU3k3MHkxYm81SkpXSHZKR1FQR1hQWWEiLCJtYWMiOiI0ZmRjMDUyZjAxM2Q4MjllZTE4NjIwNmNiYzdmZDYzZDhkNDViZGIzM2JlOGIyYmU0OTgzODUxZWU4Zjg1YTIyIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'teams/{teamId}/invites'
+    metadata:
+      custom: []
+      groupName: 'Team Invites'
+      groupDescription: |-
+
+        APIs for managing team invitations. Invite users to join teams and handle invite acceptance/rejection.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      teamId:
+        custom: []
+        name: teamId
+        description: ''
+        required: true
+        example: 019bbe58-dcaf-7342-8438-17a3321c9b90
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      teamId: 019bbe58-dcaf-7342-8438-17a3321c9b90
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IlQvSWxvSndibkl3T09QeGNDd0VBYmc9PSIsInZhbHVlIjoiR3BIdzZmUVo5Z1Y0bzQ2UENqVHVDb1dncFo2L0c4NUNGbGVqK0grWXp2bEQ0NkFHa2pIdDEvbFBVVk9ZZXNpMTAxcTNrRXVlWkc1bHlab2liOUZUK3pHRmRHa055aDVkMTJiazhXQTZySEVBT2dqeTA1SEh5bkI1ZlZobUd2U2IiLCJtYWMiOiI4MDk2MWJlMjhhMzVkY2NkOTNkNTAzNzM3YzUzYTUzNGFjYTBhZTIwYzMwZmYwNDIzNmNjNDc3YzFiYWRhOTRlIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IlFIY2Z5a3kxTjA2czNlTm8zZmhYOHc9PSIsInZhbHVlIjoiYWF1c21KMXFIZ3pLdEdpS3VWT0I4K3ZRVzYwZ2xuN1I5L2lhOWZqZENRd1VkbE8rUTJOUkk5ckQ2UitVamhJd3Fqdm90VTBnNXltNEc5K2U5L1cySjh3djlRTk9lcFNDWWl0ZGViUGFhSzlyQ1VIaERqQlZnYm5wOHRRMk42SjQiLCJtYWMiOiJiMTQ1N2VkY2Q3OTllNzJiMzU4YjUyOWNjM2JkZWViMDA3NTAwNWMzNjVlMjIwMjM3NWIyMzg5YmIzMzYzZDliIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: team-invites
+    metadata:
+      custom: []
+      groupName: 'Team Invites'
+      groupDescription: |-
+
+        APIs for managing team invitations. Invite users to join teams and handle invite acceptance/rejection.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      team_id:
+        custom: []
+        name: team_id
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the teams table.'
+        required: true
+        example: 6ff8f7f6-1eb3-3525-be4a-3932c805afed
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      invitee_email:
+        custom: []
+        name: invitee_email
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        required: false
+        example: ashly64@example.com
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      usage_limit:
+        custom: []
+        name: usage_limit
+        description: 'Must be at least 1. Must not be greater than 100.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      expiry_days:
+        custom: []
+        name: expiry_days
+        description: 'Must be at least 1. Must not be greater than 365.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      team_id: 6ff8f7f6-1eb3-3525-be4a-3932c805afed
+      invitee_email: ashly64@example.com
+      usage_limit: 1
+      expiry_days: 1
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'team-invites/{invite_id}'
+    metadata:
+      custom: []
+      groupName: 'Team Invites'
+      groupDescription: |-
+
+        APIs for managing team invitations. Invite users to join teams and handle invite acceptance/rejection.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      invite_id:
+        custom: []
+        name: invite_id
+        description: 'The ID of the invite.'
+        required: true
+        example: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      invite_id: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6Ii93azRmc0thSFpFS2J2K3JVVEFRWmc9PSIsInZhbHVlIjoicnlNWHNPd0Jya2Y1dUZlTzhjdHlFNjlLZGRvQlB2N1VsdUp2bW9tcEYrK281aWRDL2RFNi81T1RuTDNpOTl4allEdWs1WlRzT3VOMTg2UTFYTlV3dDdsem9tV0Y4LytoR3lUNFUrTk9kaVJtbEZTRGFXYUpMTlZQcVNTZHFwSmwiLCJtYWMiOiI2NDUzNjIxNGI1MTRlYWE5Nzk5Y2MwM2Q3N2MwZmNjMjQ0ZmIyNDFmYTI5NThiYjQ4NDcxNTFiY2ZlN2EyMzhhIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IktSTTlFZ2t0VnlpeW5VeStWVDR0RVE9PSIsInZhbHVlIjoianFFMFpVS24wb1ZjaGQreW9jZ0srdDNISjNVL2x0MVdLcDFDcVV4TUYzTHhpSS9IRnZ0ZlhUZFozdmdYdlY3N1FKbkEwZFltbGNkcGYrSnlqODhpOTlVQ3cxTXdBOFg0MmNSWDZjMHlqYmRBZFR4U0JhMURFMFoxdEhOVU9VSC8iLCJtYWMiOiJkZGQxZmZhYmUzNGY1NTc3NzNmZWFiZjI2ODE0NzVjMTk5OWQ0YjMxZjZjNWVlZTUwMWIzNzE5ZDAwYzQ1ZWIyIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'invites/{invite_id}/accept'
+    metadata:
+      custom: []
+      groupName: 'Team Invites'
+      groupDescription: |-
+
+        APIs for managing team invitations. Invite users to join teams and handle invite acceptance/rejection.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      invite_id:
+        custom: []
+        name: invite_id
+        description: 'The ID of the invite.'
+        required: true
+        example: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      invite_id: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'invites/{invite_id}/reject'
+    metadata:
+      custom: []
+      groupName: 'Team Invites'
+      groupDescription: |-
+
+        APIs for managing team invitations. Invite users to join teams and handle invite acceptance/rejection.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      invite_id:
+        custom: []
+        name: invite_id
+        description: 'The ID of the invite.'
+        required: true
+        example: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      invite_id: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: 'team-invites/{invite_id}/revoke'
+    metadata:
+      custom: []
+      groupName: 'Team Invites'
+      groupDescription: |-
+
+        APIs for managing team invitations. Invite users to join teams and handle invite acceptance/rejection.
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      invite_id:
+        custom: []
+        name: invite_id
+        description: 'The ID of the invite.'
+        required: true
+        example: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      invite_id: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
