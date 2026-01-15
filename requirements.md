@@ -239,6 +239,4 @@ Complete the Missing Requirements
 ## Missing/Incomplete Items
 
 - Feature Tests - Only auth tests, no controller tests
-- Global Search - Only page-level search
-- Date Range Filtering - Not implemented
 ```

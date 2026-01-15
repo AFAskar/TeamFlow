@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { Calendar, Filter, ListTodo, Plus, Search } from 'lucide-react';
+import { CalendarDays, Filter, ListTodo, Plus, Search, X } from 'lucide-react';
 import { useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -18,6 +18,8 @@ interface Props {
         status?: string;
         priority?: string;
         search?: string;
+        due_date_from?: string;
+        due_date_to?: string;
     };
     statuses: Array<{ value: string }>;
 }
@@ -45,6 +47,8 @@ export default function TasksIndex({ tasks, filters }: Props) {
     const [search, setSearch] = useState(filters.search || '');
     const [status, setStatus] = useState(filters.status || 'all');
     const [priority, setPriority] = useState(filters.priority || 'all');
+    const [dueDateFrom, setDueDateFrom] = useState(filters.due_date_from || '');
+    const [dueDateTo, setDueDateTo] = useState(filters.due_date_to || '');
 
     const formatDate = (dateString?: string) => {
         if (!dateString) return '-';
@@ -56,8 +60,18 @@ export default function TasksIndex({ tasks, filters }: Props) {
         if (search) params.set('search', search);
         if (status && status !== 'all') params.set('status', status);
         if (priority && priority !== 'all') params.set('priority', priority);
+        if (dueDateFrom) params.set('due_date_from', dueDateFrom);
+        if (dueDateTo) params.set('due_date_to', dueDateTo);
         window.location.href = `/tasks?${params.toString()}`;
     };
+
+    const clearDateFilter = () => {
+        setDueDateFrom('');
+        setDueDateTo('');
+    };
+
+    const hasDateFilter = dueDateFrom || dueDateTo;
+    const hasAnyFilter = search || status !== 'all' || priority !== 'all' || hasDateFilter;
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -121,6 +135,59 @@ export default function TasksIndex({ tasks, filters }: Props) {
                                 Apply
                             </Button>
                         </div>
+
+                        {/* Date Range Filter */}
+                        <div className="mt-4 flex flex-wrap items-center gap-4 border-t pt-4">
+                            <div className="flex items-center gap-2">
+                                <CalendarDays className="h-4 w-4 text-muted-foreground" />
+                                <span className="text-sm text-muted-foreground">Due Date:</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Input
+                                    type="date"
+                                    placeholder="From"
+                                    value={dueDateFrom}
+                                    onChange={(e) => setDueDateFrom(e.target.value)}
+                                    className="w-[160px]"
+                                />
+                                <span className="text-muted-foreground">to</span>
+                                <Input
+                                    type="date"
+                                    placeholder="To"
+                                    value={dueDateTo}
+                                    onChange={(e) => setDueDateTo(e.target.value)}
+                                    className="w-[160px]"
+                                />
+                            </div>
+                            {hasDateFilter && (
+                                <Button variant="ghost" size="sm" onClick={clearDateFilter}>
+                                    <X className="mr-1 h-3 w-3" />
+                                    Clear dates
+                                </Button>
+                            )}
+                        </div>
+
+                        {/* Active filters summary */}
+                        {hasAnyFilter && (
+                            <div className="mt-4 flex flex-wrap items-center gap-2 border-t pt-4">
+                                <span className="text-sm text-muted-foreground">Active filters:</span>
+                                {search && (
+                                    <Badge variant="secondary">Search: {search}</Badge>
+                                )}
+                                {status !== 'all' && (
+                                    <Badge variant="secondary">Status: {status}</Badge>
+                                )}
+                                {priority !== 'all' && (
+                                    <Badge variant="secondary">Priority: {priority}</Badge>
+                                )}
+                                {dueDateFrom && (
+                                    <Badge variant="secondary">From: {dueDateFrom}</Badge>
+                                )}
+                                {dueDateTo && (
+                                    <Badge variant="secondary">To: {dueDateTo}</Badge>
+                                )}
+                            </div>
+                        )}
                     </CardContent>
                 </Card>
 
@@ -131,7 +198,7 @@ export default function TasksIndex({ tasks, filters }: Props) {
                             <ListTodo className="mb-4 h-12 w-12 text-muted-foreground" />
                             <h3 className="mb-2 text-lg font-semibold">No tasks found</h3>
                             <p className="mb-4 text-muted-foreground">
-                                {filters.search || filters.status || filters.priority
+                                {hasAnyFilter
                                     ? 'Try adjusting your filters'
                                     : 'Create your first task to get started'}
                             </p>
