@@ -80,10 +80,10 @@ class DashboardController extends Controller
             ]);
 
         return Inertia::render('dashboard', [
-            'myTasks' => TaskResource::collection($myTasks)->resolve(),
+            'recentTasks' => TaskResource::collection($myTasks)->resolve(),
             'teams' => TeamResource::collection($teams)->resolve(),
             'projects' => ProjectResource::collection($projects)->resolve(),
-            'taskStats' => $taskStats,
+            'stats' => $taskStats,
             'recentActivity' => $recentActivity,
         ]);
     }
