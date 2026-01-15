@@ -141,12 +141,15 @@ export default function EditTask({ task }: Props) {
 
                                     <div className="space-y-2">
                                         <Label htmlFor="assigned_to">Assignee</Label>
-                                        <Select value={data.assigned_to} onValueChange={(value) => setData('assigned_to', value)}>
+                                        <Select
+                                            value={data.assigned_to || 'unassigned'}
+                                            onValueChange={(value) => setData('assigned_to', value === 'unassigned' ? '' : value)}
+                                        >
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select assignee" />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="">Unassigned</SelectItem>
+                                                <SelectItem value="unassigned">Unassigned</SelectItem>
                                                 {availableMembers.map((member) => (
                                                     <SelectItem key={member.id} value={member.id}>
                                                         {member.username}
