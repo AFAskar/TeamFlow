@@ -21,6 +21,7 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
+    useSidebar,
 } from '@/components/ui/sidebar';
 import { useActiveUrl } from '@/hooks/use-active-url';
 import { dashboard } from '@/routes';
@@ -44,6 +45,7 @@ const footerNavItems: NavItem[] = [
 export function AppSidebar() {
     const { sidebarTeams, sidebarProjects } = usePage<SharedData>().props;
     const { urlIsActive } = useActiveUrl();
+    const { state } = useSidebar();
 
     return (
         <Sidebar collapsible="icon" variant="inset">
@@ -88,12 +90,20 @@ export function AppSidebar() {
                                 <Collapsible key={team.id} asChild defaultOpen={false} className="group/collapsible">
                                     <SidebarMenuItem>
                                         <CollapsibleTrigger asChild>
-                                            <SidebarMenuButton tooltip={{ children: team.name }} asChild>
-                                                <Link href={`/teams/${team.id}/dashboard`} prefetch>
-                                                    <Users className="shrink-0" />
-                                                    <span className="truncate">{team.name}</span>
-                                                    <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                                                </Link>
+                                            <SidebarMenuButton tooltip={{ children: team.name }} asChild={state === 'collapsed'}>
+                                                {state === 'collapsed' ? (
+                                                    <Link href={`/teams/${team.id}/dashboard`} prefetch>
+                                                        <Users className="shrink-0" />
+                                                        <span className="truncate">{team.name}</span>
+                                                        <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                                    </Link>
+                                                ) : (
+                                                    <>
+                                                        <Users className="shrink-0" />
+                                                        <span className="truncate">{team.name}</span>
+                                                        <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                                    </>
+                                                )}
                                             </SidebarMenuButton>
                                         </CollapsibleTrigger>
                                         <CollapsibleContent>
@@ -138,12 +148,20 @@ export function AppSidebar() {
                                 <Collapsible key={project.id} asChild defaultOpen={false} className="group/collapsible">
                                     <SidebarMenuItem>
                                         <CollapsibleTrigger asChild>
-                                            <SidebarMenuButton tooltip={{ children: project.name }} asChild>
-                                                <Link href={`/projects/${project.id}`} prefetch>
-                                                    <FolderOpen className="shrink-0" />
-                                                    <span className="truncate">{project.name}</span>
-                                                    <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                                                </Link>
+                                            <SidebarMenuButton tooltip={{ children: project.name }} asChild={state === 'collapsed'}>
+                                                {state === 'collapsed' ? (
+                                                    <Link href={`/projects/${project.id}`} prefetch>
+                                                        <FolderOpen className="shrink-0" />
+                                                        <span className="truncate">{project.name}</span>
+                                                        <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                                    </Link>
+                                                ) : (
+                                                    <>
+                                                        <FolderOpen className="shrink-0" />
+                                                        <span className="truncate">{project.name}</span>
+                                                        <ChevronRight className="ml-auto shrink-0 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                                                    </>
+                                                )}
                                             </SidebarMenuButton>
                                         </CollapsibleTrigger>
                                         <CollapsibleContent>
