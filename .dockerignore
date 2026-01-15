@@ -1,0 +1,64 @@
+# TeamFlow - Docker Ignore
+# Excludes files that shouldn't be copied into the container
+
+# Dependencies (installed in container)
+/node_modules
+/vendor
+
+# Build outputs
+/public/build
+/public/hot
+
+# IDE and editor files
+/.idea
+/.vscode
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker files (except what's needed)
+docker-compose*.yml
+Dockerfile
+
+# Logs and temp files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+storage/logs/*
+!storage/logs/.gitkeep
+
+# Environment files (use volumes or secrets)
+.env
+.env.*
+!.env.example
+
+# Testing
+/tests
+*.test.ts
+*.spec.ts
+phpunit.xml
+.phpunit.result.cache
+/coverage
+
+# Documentation
+*.md
+LICENSE
+
+# Cache and session files
+storage/framework/cache/*
+!storage/framework/cache/.gitkeep
+storage/framework/sessions/*
+!storage/framework/sessions/.gitkeep
+storage/framework/views/*
+!storage/framework/views/.gitkeep
+bootstrap/cache/*
+!bootstrap/cache/.gitkeep
