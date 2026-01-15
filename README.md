@@ -12,6 +12,7 @@
   <a href="#features">Features</a> •
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#installation">Installation</a> •
+  <a href="#docker">Docker</a> •
   <a href="#usage">Usage</a> •
   <a href="#api-reference">API</a> •
   <a href="#testing">Testing</a>
@@ -66,11 +67,21 @@
 
 ### Additional Features
 
+- **Global Search** - Search across teams, projects, and tasks from anywhere
+- **Date Range Filtering** - Filter tasks by due date with intuitive date picker
+- **Task Export** - Export tasks to CSV or PDF formats
 - **Audit Logging** - Track all user actions for accountability
-- **Search & Filtering** - Find tasks by status, priority, assignee, or text
 - **Responsive Design** - Works on desktop, tablet, and mobile
 - **Dark Mode** - Toggle between light and dark themes
 - **Real-time Updates** - Inertia.js powered SPA experience
+- **API Documentation** - Auto-generated API docs with Scribe
+
+### Developer Experience
+
+- **Docker Support** - Containerized development environment
+- **Type-Safe Routes** - Laravel Wayfinder for TypeScript route generation
+- **Comprehensive Testing** - 100+ Pest tests with full coverage
+- **Code Quality** - Laravel Pint and ESLint for consistent code style
 
 ---
 
@@ -105,7 +116,92 @@
 | Pest         | PHP Testing Framework         |
 | Laravel Pint | PHP Code Style Fixer          |
 | ESLint       | JavaScript/TypeScript Linting |
+| Scribe       | API Documentation Generator   |
 | pnpm         | Package Manager               |
+| Docker       | Containerized Development     |
+
+---
+
+## 🐳 Docker
+
+TeamFlow includes a complete Docker development environment for consistent setup across machines.
+
+### Quick Start with Docker
+
+```bash
+# Clone and enter the project
+git clone https://github.com/AFAskar/TeamFlow.git
+cd TeamFlow
+
+# Build and start containers
+make setup
+
+# Or manually:
+docker compose up -d
+docker compose exec app php artisan migrate --seed
+```
+
+Visit `http://localhost:8000` in your browser.
+
+### Available Services
+
+| Service   | Port | Description                    |
+| --------- | ---- | ------------------------------ |
+| app       | 8000 | Laravel + Nginx + PHP-FPM      |
+| mysql     | 3306 | MySQL 8.0 database             |
+| redis     | 6379 | Redis for cache/queue/sessions |
+| node      | 5173 | Vite dev server with HMR       |
+| mailpit   | 8025 | Email testing UI               |
+| queue     | -    | Laravel queue worker           |
+| scheduler | -    | Laravel task scheduler         |
+
+### Docker Commands (Makefile)
+
+```bash
+# Basic commands
+make build      # Build Docker images
+make up         # Start all containers
+make down       # Stop all containers
+make logs       # View container logs
+
+# Development
+make dev        # Start with Vite dev server
+make shell      # Open shell in app container
+make artisan cmd='migrate'  # Run artisan command
+
+# Database
+make mysql      # Open MySQL shell
+make fresh      # Fresh migration with seeders
+
+# Testing
+make test       # Run all tests
+
+# Services (profiles)
+make queue      # Start queue worker
+make scheduler  # Start scheduler
+make mail       # Start Mailpit for email testing
+```
+
+### Docker Environment
+
+Update your `.env` file for Docker:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_DATABASE=teamflow
+DB_USERNAME=teamflow
+DB_PASSWORD=secret
+
+REDIS_HOST=redis
+CACHE_STORE=redis
+QUEUE_CONNECTION=redis
+SESSION_DRIVER=redis
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+```
 
 ---
 
@@ -313,6 +409,14 @@ TeamFlow/
 | PATCH  | `/tasks/{id}/status` | Update task status         |
 | DELETE | `/tasks/{id}`        | Delete task                |
 | POST   | `/tasks/reorder`     | Reorder tasks (Kanban)     |
+| GET    | `/tasks-export/csv`  | Export tasks to CSV        |
+| GET    | `/tasks-export/pdf`  | Export tasks to PDF        |
+
+### Search
+
+| Method | Endpoint  | Description                               |
+| ------ | --------- | ----------------------------------------- |
+| GET    | `/search` | Global search across teams/projects/tasks |
 
 ### Task Comments
 
@@ -331,9 +435,26 @@ TeamFlow/
 | POST   | `/invites/{id}/accept` | Accept invitation       |
 | POST   | `/invites/{id}/reject` | Decline invitation      |
 
+### API Documentation
+
+Full interactive API documentation is available at `/docs` when running the application. The documentation is auto-generated using [Scribe](https://scribe.knuckles.wtf/) and includes:
+
+- Request/response examples
+- Authentication requirements
+- Parameter descriptions
+- Try-it-out functionality
+
+To regenerate the API documentation:
+
+```bash
+php artisan scribe:generate
+```
+
 ---
 
 ## 🧪 Testing
+
+TeamFlow has comprehensive test coverage with 100+ tests using Pest PHP.
 
 ### Running Tests
 
@@ -341,15 +462,29 @@ TeamFlow/
 # Run all tests
 php artisan test
 
+# Run with compact output
+php artisan test --compact
+
 # Run with coverage
 php artisan test --coverage
 
 # Run specific test file
-php artisan test tests/Feature/Auth/RegistrationTest.php
+php artisan test tests/Feature/TeamControllerTest.php
 
 # Run tests matching a filter
 php artisan test --filter=registration
 ```
+
+### Test Categories
+
+| Category | Tests | Description                        |
+| -------- | ----- | ---------------------------------- |
+| Auth     | 15+   | Registration, login, 2FA, password |
+| Teams    | 20+   | Team CRUD, members, invitations    |
+| Projects | 11+   | Project CRUD, members, restoration |
+| Tasks    | 15+   | Task CRUD, status, comments        |
+| Search   | 7+    | Global search functionality        |
+| Export   | 8+    | CSV and PDF export                 |
 
 ### Code Style
 
@@ -367,17 +502,25 @@ vendor/bin/pint --test
 
 ### Environment Variables
 
-| Variable        | Description                    | Default  |
-| --------------- | ------------------------------ | -------- |
-| `APP_NAME`      | Application name               | TeamFlow |
-| `APP_ENV`       | Environment (local/production) | local    |
-| `APP_DEBUG`     | Debug mode                     | true     |
-| `DB_CONNECTION` | Database driver                | sqlite   |
-| `MAIL_MAILER`   | Mail driver                    | log      |
+| Variable           | Description                    | Default  |
+| ------------------ | ------------------------------ | -------- |
+| `APP_NAME`         | Application name               | TeamFlow |
+| `APP_ENV`          | Environment (local/production) | local    |
+| `APP_DEBUG`        | Debug mode                     | true     |
+| `DB_CONNECTION`    | Database driver                | sqlite   |
+| `CACHE_STORE`      | Cache driver                   | database |
+| `QUEUE_CONNECTION` | Queue driver                   | database |
+| `MAIL_MAILER`      | Mail driver                    | log      |
 
 ### Database Options
 
-To use MySQL instead of SQLite:
+**SQLite (Default)**
+
+```env
+DB_CONNECTION=sqlite
+```
+
+**MySQL**
 
 ```env
 DB_CONNECTION=mysql
@@ -386,6 +529,17 @@ DB_PORT=3306
 DB_DATABASE=teamflow
 DB_USERNAME=root
 DB_PASSWORD=
+```
+
+### Cache & Queue Options
+
+**Redis (Recommended for production)**
+
+```env
+REDIS_HOST=127.0.0.1
+CACHE_STORE=redis
+QUEUE_CONNECTION=redis
+SESSION_DRIVER=redis
 ```
 
 ---
@@ -422,6 +576,8 @@ This project is open-sourced software licensed under the [MIT license](LICENSE).
 - [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS
 - [shadcn/ui](https://ui.shadcn.com) - Beautiful Components
 - [Lucide](https://lucide.dev) - Icon Library
+- [Scribe](https://scribe.knuckles.wtf/) - API Documentation
+- [DomPDF](https://github.com/dompdf/dompdf) - PDF Generation
 
 ---
 
