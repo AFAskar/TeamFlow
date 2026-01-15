@@ -45,7 +45,6 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $user,
             ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'sidebarTeams' => $user ? TeamResource::collection($user->teams()->orderBy('name')->get())->resolve() : [],
             'sidebarProjects' => $user ? ProjectResource::collection($user->projects()->with('team')->orderBy('name')->get())->resolve() : [],
         ];
