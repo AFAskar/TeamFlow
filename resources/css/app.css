@@ -2,6 +2,8 @@
 
 @import 'tw-animate-css';
 
+@plugin '@tailwindcss/typography';
+
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
@@ -140,4 +142,30 @@
     body {
         @apply bg-background text-foreground;
     }
+}
+
+/* Tiptap Editor Styles */
+.tiptap p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: var(--muted-foreground);
+    pointer-events: none;
+    height: 0;
+}
+
+.tiptap:focus {
+    outline: none;
+}
+
+.tiptap ul,
+.tiptap ol {
+    padding-left: 1.5rem;
+}
+
+.tiptap ul {
+    list-style-type: disc;
+}
+
+.tiptap ol {
+    list-style-type: decimal;
 }

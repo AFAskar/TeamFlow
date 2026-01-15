@@ -104,9 +104,14 @@ export default function ShowTask({ task }: Props) {
                                 <CardTitle>Description</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <p className="whitespace-pre-wrap text-muted-foreground">
-                                    {task.description || 'No description provided.'}
-                                </p>
+                                {task.description ? (
+                                    <div
+                                        className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground"
+                                        dangerouslySetInnerHTML={{ __html: task.description }}
+                                    />
+                                ) : (
+                                    <p className="text-muted-foreground">No description provided.</p>
+                                )}
                             </CardContent>
                         </Card>
 

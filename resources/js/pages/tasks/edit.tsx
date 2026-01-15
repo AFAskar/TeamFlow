@@ -1,13 +1,13 @@
 import { Head, useForm, router } from '@inertiajs/react';
 import { FormEvent } from 'react';
 
+import { RichTextEditor } from '@/components/rich-text-editor';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem, Task, Project, Label as LabelType, User } from '@/types';
 
@@ -87,12 +87,10 @@ export default function EditTask({ task }: Props) {
 
                                 <div className="space-y-2">
                                     <Label htmlFor="description">Description</Label>
-                                    <Textarea
-                                        id="description"
-                                        value={data.description}
-                                        onChange={(e) => setData('description', e.target.value)}
-                                        placeholder="Describe the task in detail"
-                                        rows={4}
+                                    <RichTextEditor
+                                        content={data.description}
+                                        onChange={(html) => setData('description', html)}
+                                        placeholder="Describe the task in detail..."
                                     />
                                     {errors.description && <p className="text-sm text-red-500">{errors.description}</p>}
                                 </div>
