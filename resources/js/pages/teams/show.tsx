@@ -209,7 +209,7 @@ export default function ShowTeam({ team }: Props) {
                                         <Link key={project.id} href={`/projects/${project.id}`}>
                                             <div className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-muted/50">
                                                 <div className="flex items-center gap-3">
-                                                    <FolderOpen className="h-5 w-5 text-muted-foreground" />
+                                                    <FolderOpen className="h-5 w-5 shrink-0 text-muted-foreground" />
                                                     <div>
                                                         <p className="font-medium">{project.name}</p>
                                                         {project.description && (
