@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, ChevronRight, Folder, FolderOpen, LayoutDashboard, LayoutGrid, Users } from 'lucide-react';
+import { BookOpen, ChevronRight, ClipboardList, Folder, FolderOpen, LayoutDashboard, LayoutGrid, Users } from 'lucide-react';
 
 import { NavFooter } from '@/components/nav-footer';
 import { NavUser } from '@/components/nav-user';
@@ -75,6 +75,18 @@ export function AppSidebar() {
                                 <Link href="/dashboard" prefetch>
                                     <LayoutGrid />
                                     <span>My Dashboard</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                asChild
+                                isActive={urlIsActive('/tasks')}
+                                tooltip={{ children: 'All Tasks' }}
+                            >
+                                <Link href="/tasks" prefetch>
+                                    <ClipboardList />
+                                    <span>All Tasks</span>
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
