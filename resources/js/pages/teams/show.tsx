@@ -1,5 +1,5 @@
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { Edit, FolderOpen, MoreHorizontal, Plus, Trash2, UserMinus, Users } from 'lucide-react';
+import { Edit, FolderOpen, LayoutDashboard, MoreHorizontal, Plus, Trash2, UserMinus, Users } from 'lucide-react';
 import { useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -89,6 +89,13 @@ export default function ShowTeam({ team }: Props) {
                             </span>
                         </div>
                     </div>
+                    <div className="flex items-center gap-2">
+                        <Button variant="outline" asChild>
+                            <Link href={`/teams/${team.id}/dashboard`}>
+                                <LayoutDashboard className="mr-2 h-4 w-4" />
+                                Team Dashboard
+                            </Link>
+                        </Button>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline" size="icon">
@@ -127,6 +134,7 @@ export default function ShowTeam({ team }: Props) {
                             )}
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    </div>
                 </div>
 
                 <div className="grid gap-6 lg:grid-cols-3">
@@ -195,8 +203,32 @@ export default function ShowTeam({ team }: Props) {
                             </Button>
                         </CardHeader>
                         <CardContent>
-                            {/* Projects would be loaded here */}
-                            <p className="text-muted-foreground">View all projects in the Projects tab.</p>
+                            {team.projects && team.projects.length > 0 ? (
+                                <div className="space-y-3">
+                                    {team.projects.map((project) => (
+                                        <Link key={project.id} href={`/projects/${project.id}`}>
+                                            <div className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-muted/50">
+                                                <div className="flex items-center gap-3">
+                                                    <FolderOpen className="h-5 w-5 text-muted-foreground" />
+                                                    <div>
+                                                        <p className="font-medium">{project.name}</p>
+                                                        {project.description && (
+                                                            <p className="text-sm text-muted-foreground line-clamp-1">
+                                                                {project.description}
+                                                            </p>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="flex flex-col items-center justify-center py-8 text-center">
+                                    <FolderOpen className="h-10 w-10 text-muted-foreground" />
+                                    <p className="mt-2 text-sm text-muted-foreground">No projects yet</p>
+                                </div>
+                            )}
                         </CardContent>
                     </Card>
                 </div>

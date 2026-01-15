@@ -23,6 +23,7 @@ class TeamResource extends JsonResource
             'description' => $this->description,
             'creator' => $this->whenLoaded('creator', fn () => (new UserResource($this->creator))->resolve()),
             'members' => $this->whenLoaded('members', fn () => UserResource::collection($this->members)->resolve()),
+            'projects' => $this->whenLoaded('projects', fn () => ProjectResource::collection($this->projects)->resolve()),
             'members_count' => $this->whenCounted('members'),
             'projects_count' => $this->whenCounted('projects'),
             'created_at' => $this->created_at?->toISOString(),

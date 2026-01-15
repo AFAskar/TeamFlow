@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { CheckCircleIcon, ClipboardListIcon, ClockIcon, FolderIcon, PlusIcon, UsersIcon } from 'lucide-react';
+import { CheckCircleIcon, ClipboardListIcon, ClockIcon, FolderIcon, LayoutDashboardIcon, PlusIcon, UsersIcon } from 'lucide-react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -174,12 +174,19 @@ export default function Dashboard({ stats = defaultStats, recentTasks = [], team
                                 <div className="space-y-4">
                                     {teams.slice(0, 3).map((team) => (
                                         <div key={team.id} className="space-y-2">
-                                            <Link href={`/teams/${team.id}`}>
-                                                <div className="flex items-center gap-2 font-medium hover:underline">
-                                                    <UsersIcon className="h-4 w-4" />
-                                                    {team.name}
-                                                </div>
-                                            </Link>
+                                            <div className="flex items-center justify-between">
+                                                <Link href={`/teams/${team.id}`}>
+                                                    <div className="flex items-center gap-2 font-medium hover:underline">
+                                                        <UsersIcon className="h-4 w-4" />
+                                                        {team.name}
+                                                    </div>
+                                                </Link>
+                                                <Link href={`/teams/${team.id}/dashboard`}>
+                                                    <Button variant="ghost" size="icon" className="h-7 w-7">
+                                                        <LayoutDashboardIcon className="h-4 w-4" />
+                                                    </Button>
+                                                </Link>
+                                            </div>
                                             <div className="ml-6 space-y-1">
                                                 {projects
                                                     .filter((p) => p.team_id === team.id)
