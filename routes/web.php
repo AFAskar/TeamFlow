@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GlobalSearchController;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskAttachmentController;
@@ -19,6 +20,11 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified', 'throttle:api'])->group(function () {
+    // Global Search
+    Route::get('search', GlobalSearchController::class)
+        ->middleware('throttle:search')
+        ->name('search');
+
     // Dashboard
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
