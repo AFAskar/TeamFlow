@@ -28,8 +28,9 @@ class TaskExportController extends Controller
     public function csv(Request $request): StreamedResponse
     {
         $tasks = $this->getFilteredTasks($request);
+        $context = $request->input('context', 'global');
 
-        $filename = 'tasks-export-'.now()->format('Y-m-d-His').'.csv';
+        $filename = "{$context}-tasks-export-".now()->format('Y-m-d-His').'.csv';
 
         $headers = [
             'Content-Type' => 'text/csv',
@@ -91,6 +92,7 @@ class TaskExportController extends Controller
     {
         $tasks = $this->getFilteredTasks($request);
         $user = $request->user();
+        $context = $request->input('context', 'global');
 
         $pdf = Pdf::loadView('exports.tasks-pdf', [
             'tasks' => $tasks,
@@ -99,23 +101,38 @@ class TaskExportController extends Controller
             'filters' => $request->only(['status', 'priority', 'project_id', 'search']),
         ]);
 
-        $filename = 'tasks-export-'.now()->format('Y-m-d-His').'.pdf';
+        $filename = "{$context}-tasks-export-".now()->format('Y-m-d-His').'.pdf';
 
         return $pdf->download($filename);
     }
 
     /**
-     * Get filtered tasks based on request parameters.
+     * Get filtered tasks based on request parameters and context.
      *
      * @return \Illuminate\Database\Eloquent\Collection<int, Task>
      */
     private function getFilteredTasks(Request $request)
     {
-        $query = Task::query()
-            ->whereHas('project', function ($q) use ($request) {
-                $q->whereHas('members', fn ($m) => $m->where('user_id', $request->user()->id));
-            })
-            ->with(['project.team', 'assignee', 'creator']);
+        $user = $request->user();
+        $context = $request->input('context', 'global');
+        $contextId = $request->input('context_id');
+
+        $query = Task::query()->with(['project.team', 'assignee', 'creator']);
+
+        // Apply context-based filters
+        match ($context) {
+            'user' => $query->where('assigned_to', $user->id),
+            'team' => $query->whereHas('project', fn ($q) => $q->where('team_id', $contextId)),
+            'project' => $query->where('project_id', $contextId),
+            default => $query->whereHas('project', fn ($q) => $q->whereHas('members', fn ($m) => $m->where('user_id', $user->id))),
+        };
+
+        // Only include tasks from projects user is a member of (for security)
+        if ($context !== 'user') {
+            $query->whereHas('project', function ($q) use ($user) {
+                $q->whereHas('members', fn ($m) => $m->where('user_id', $user->id));
+            });
+        }
 
         if ($request->filled('status')) {
             $query->where('status', $request->input('status'));
@@ -123,10 +140,6 @@ class TaskExportController extends Controller
 
         if ($request->filled('priority')) {
             $query->where('priority', $request->input('priority'));
-        }
-
-        if ($request->filled('project_id')) {
-            $query->where('project_id', $request->input('project_id'));
         }
 
         if ($request->filled('search')) {

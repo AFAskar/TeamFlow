@@ -4,6 +4,7 @@ import { CheckCircleIcon, ClipboardListIcon, ClockIcon, FolderIcon, LayoutDashbo
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { TaskExportMenu } from '@/components/task-export-menu';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, Task, Team, Project, TaskStats } from '@/types';
 
@@ -118,9 +119,12 @@ export default function Dashboard({ stats = defaultStats, recentTasks = [], team
                                 <CardTitle>My Tasks</CardTitle>
                                 <CardDescription>Your recently assigned tasks</CardDescription>
                             </div>
-                            <Link href="/my-tasks">
-                                <Button variant="outline" size="sm">View All</Button>
-                            </Link>
+                            <div className="flex items-center gap-2">
+                                <TaskExportMenu context="user" />
+                                <Link href="/my-tasks">
+                                    <Button variant="outline" size="sm">View All</Button>
+                                </Link>
+                            </div>
                         </CardHeader>
                         <CardContent>
                             {recentTasks.length > 0 ? (

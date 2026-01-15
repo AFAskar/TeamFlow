@@ -55,6 +55,7 @@ export default function TeamDashboard({ team, stats, recentTasks, projects, memb
                         <p className="text-muted-foreground">{team.description || 'Team dashboard'}</p>
                     </div>
                     <div className="flex gap-2">
+                        <TaskExportMenu context="team" contextId={team.id} />
                         <Link href={`/teams/${team.id}`}>
                             <Button variant="outline">
                                 <SettingsIcon className="mr-2 h-4 w-4" />

@@ -22,6 +22,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { TaskExportMenu } from '@/components/task-export-menu';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem, Project, Task, User } from '@/types';
 
@@ -137,12 +138,15 @@ export default function ShowProject({ project, tasks, members }: Props) {
                                 <CardTitle>Tasks</CardTitle>
                                 <CardDescription>{tasks.length} total tasks</CardDescription>
                             </div>
-                            <Button asChild>
-                                <Link href={`/tasks/create?project_id=${project.id}`}>
-                                    <Plus className="mr-2 h-4 w-4" />
-                                    Add Task
-                                </Link>
-                            </Button>
+                            <div className="flex items-center gap-2">
+                                <TaskExportMenu context="project" contextId={project.id} />
+                                <Button asChild>
+                                    <Link href={`/tasks/create?project_id=${project.id}`}>
+                                        <Plus className="mr-2 h-4 w-4" />
+                                        Add Task
+                                    </Link>
+                                </Button>
+                            </div>
                         </CardHeader>
                         <CardContent>
                             {tasks.length === 0 ? (
