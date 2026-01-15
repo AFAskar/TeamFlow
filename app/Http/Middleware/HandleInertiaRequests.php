@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\ProjectResource;
+use App\Http\Resources\TeamResource;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -35,13 +37,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'sidebarTeams' => $user ? TeamResource::collection($user->teams()->orderBy('name')->get())->resolve() : [],
+            'sidebarProjects' => $user ? ProjectResource::collection($user->projects()->with('team')->orderBy('name')->get())->resolve() : [],
         ];
     }
 }

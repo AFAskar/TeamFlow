@@ -26,6 +26,8 @@ export interface SharedData {
     name: string;
     auth: Auth;
     sidebarOpen: boolean;
+    sidebarTeams: Team[];
+    sidebarProjects: Project[];
     [key: string]: unknown;
 }
 
