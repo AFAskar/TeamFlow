@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { CalendarDays, Download, FileSpreadsheet, FileText, Filter, ListTodo, Plus, Search, X } from 'lucide-react';
+import { Calendar, CalendarDays, Download, FileSpreadsheet, FileText, Filter, ListTodo, Plus, Search, X } from 'lucide-react';
 import { useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
