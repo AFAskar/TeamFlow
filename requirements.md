@@ -238,8 +238,6 @@ Complete the Missing Requirements
 ```md
 ## Missing/Incomplete Items
 
-- File Attachments UI - Model exists but upload functionality not built
-- Drag-and-Drop - Kanban UI exists but needs DnD library (e.g., @dnd-kit)
 - Rich Text Editor - Task descriptions are plain text
 - Rate Limiting - Not configured in routes
 - Feature Tests - Only auth tests, no controller tests
