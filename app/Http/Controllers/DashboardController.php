@@ -110,6 +110,11 @@ class DashboardController extends Controller
             'completed' => Task::whereIn('project_id', $projectIds)->where('status', TaskStatus::Done)->count(),
             'in_progress' => Task::whereIn('project_id', $projectIds)->where('status', TaskStatus::InProgress)->count(),
             'pending' => Task::whereIn('project_id', $projectIds)->where('status', TaskStatus::Pending)->count(),
+            'overdue' => Task::whereIn('project_id', $projectIds)
+                ->whereNot('status', TaskStatus::Done)
+                ->whereNotNull('due_date')
+                ->where('due_date', '<', now())
+                ->count(),
         ];
 
         $recentTasks = Task::whereIn('project_id', $projectIds)
