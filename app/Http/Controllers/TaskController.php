@@ -87,7 +87,7 @@ class TaskController extends Controller
     {
         $projects = $request->user()
             ->projects()
-            ->with('team.labels')
+            ->with(['team.labels', 'members'])
             ->get();
 
         return Inertia::render('tasks/create', [
@@ -167,14 +167,10 @@ class TaskController extends Controller
     {
         $this->authorizeTaskAccess($task, $request->user());
 
-        $task->load(['project.team.labels', 'labels']);
-
-        $members = $task->project->members()->get();
+        $task->load(['project.team.labels', 'project.members', 'labels', 'assignee']);
 
         return Inertia::render('tasks/edit', [
             'task' => (new TaskResource($task))->resolve(),
-            'labels' => LabelResource::collection($task->project->team->labels)->resolve(),
-            'members' => UserResource::collection($members)->resolve(),
         ]);
     }
 

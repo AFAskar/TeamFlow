@@ -21,6 +21,7 @@ class ProjectResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'team_id' => $this->team_id,
             'team' => $this->whenLoaded('team', fn () => (new TeamResource($this->team))->resolve()),
             'creator' => $this->whenLoaded('creator', fn () => (new UserResource($this->creator))->resolve()),
             'members' => $this->whenLoaded('members', fn () => UserResource::collection($this->members)->resolve()),
