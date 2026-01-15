@@ -142,7 +142,7 @@ class TeamController extends Controller
             return back()->with('error', 'You are not a member of this team.');
         }
 
-        if ($userTeam->team_role === TeamRole::Owner->value) {
+        if ($userTeam->team_role === TeamRole::Owner) {
             return back()->with('error', 'Team owner cannot leave the team. Transfer ownership first.');
         }
 
@@ -209,7 +209,7 @@ class TeamController extends Controller
             return back()->with('error', 'User is not a member of this team.');
         }
 
-        if ($membership->team_role === TeamRole::Owner->value) {
+        if ($membership->team_role === TeamRole::Owner) {
             return back()->with('error', 'Cannot change the role of the team owner.');
         }
 
@@ -234,7 +234,7 @@ class TeamController extends Controller
             return back()->with('error', 'User is not a member of this team.');
         }
 
-        if ($membership->team_role === TeamRole::Owner->value) {
+        if ($membership->team_role === TeamRole::Owner) {
             return back()->with('error', 'Cannot remove the team owner.');
         }
 
@@ -260,7 +260,7 @@ class TeamController extends Controller
         if (! empty($allowedRoles)) {
             $hasAllowedRole = false;
             foreach ($allowedRoles as $role) {
-                if ($membership->team_role === $role->value) {
+                if ($membership->team_role === $role) {
                     $hasAllowedRole = true;
                     break;
                 }

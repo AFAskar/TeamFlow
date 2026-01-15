@@ -13,8 +13,8 @@ class UpdateProjectRequest extends FormRequest
         $user = $this->user();
 
         return $project->members()
-            ->where('user_id', $user->id)
-            ->whereIn('role', [ProjectRole::Lead->value, ProjectRole::TechnicalLead->value])
+            ->where('project_members.user_id', $user->id)
+            ->whereIn('project_members.role', [ProjectRole::Lead->value, ProjectRole::TechnicalLead->value])
             ->exists()
             || $project->created_by === $user->id;
     }
