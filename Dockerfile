@@ -61,8 +61,8 @@ RUN pnpm install --frozen-lockfile
 # Copy application files
 COPY . .
 
-# Generate autoloader and run scripts
-RUN composer dump-autoload --optimize
+# Generate autoloader 
+RUN composer dump-autoload --optimize --no-scripts
 
 # Build frontend assets
 RUN pnpm run build
