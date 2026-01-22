@@ -142,3 +142,7 @@ build-assets:
 # Setup fresh environment
 setup: build up install migrate build-assets
 	@echo "TeamFlow is ready! Visit http://localhost:8000"
+setup-dev: 
+	pnpm i && composer install && cp .env.example .env && php artisan key:generate && touch database/database.sqlite && php artisan migrate --seed && pnpm build
+	@echo "TeamFlow development environment is ready! run php artisan serve to start the server."
+	
