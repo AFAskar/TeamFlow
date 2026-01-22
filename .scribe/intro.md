@@ -3,7 +3,7 @@
 TeamFlow is a comprehensive team project management system that helps teams collaborate effectively. Manage teams, projects, tasks, labels, and team invites with our powerful API.
 
 <aside>
-    <strong>Base URL</strong>: <code>http://localhost:8000</code>
+    <strong>Base URL</strong>: <code>http://localhost</code>
 </aside>
 
     Welcome to the TeamFlow API documentation. This API powers a comprehensive team project management system designed for modern teams.

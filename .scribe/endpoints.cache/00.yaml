@@ -62,3 +62,59 @@ endpoints:
     controller: null
     method: null
     route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: search
+    metadata:
+      custom: []
+      groupName: 'Other Endpoints'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Perform global search across teams, projects, and tasks.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      q:
+        custom: []
+        name: q
+        description: 'Must be at least 2 characters. Must not be greater than 100 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      q: b
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IkpwTE5IUEpnbmd0Y1BQMmRKVDRRdVE9PSIsInZhbHVlIjoiRXRyclJWczR4czFnTTZrZUpBS0RtWWFnZG1uSldoankzS1ZRMm5hQUh1NlZ3L3BZSVR0YzJPZnBpYTFiYXExRHZtSzFYYk95dTh2ekxLSXhNR29yYWJEdVBkOU9jalN6c3RBVGpUZXRNOHc0L2UrUU1NNUVVdGlyM3kvUVRaKzUiLCJtYWMiOiIwNDJiZWRkMWUzNDljNWM4ODczYmUyOWM4Y2I2N2U2MWU0ZGY4NDQ2YmNhZTQ1NWMyZjY1MTAzMTVjNDlmMjk4IiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:57 GMT; Max-Age=7200; path=/; samesite=lax; teamflow-session=eyJpdiI6IlF5aUI4K010bU14S1VyRU9JZjFJZnc9PSIsInZhbHVlIjoib09HMFU5M2RwMUxyRTluSkZ5YkxxZGJvUGFoUVg5L29sb2tjRFltajZKNVRldEQ1eWVUeG1qMTRIVUpzdExSRnE2bFJUMFdDNGtXcDJjMzdwUFUrOW5IWG1sRVpIZDc5a2xub2w4dytaOXoyMG8rQmpBenY4Mmt2UENrVDJjY00iLCJtYWMiOiJkZjM4NDU4ZWNjZmI4NTkyZGVmYzIxYTBmYjY2MzAwNTgwYTc1M2UwYTNjMjBiNDRkZjIyMDJkMGU5OWEzMjdjIiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:57 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null

@@ -39,7 +39,7 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          set-cookie: 'XSRF-TOKEN=eyJpdiI6IkJIbzkzOUlHbDRwRUtxUEJwaCtMYXc9PSIsInZhbHVlIjoiMkJET0E4b3BkTWVlNlBIY3JYdndIbVVCUzA4V2pDV25qY3BBdm1YdkppcWVLM3AzcXViS3AyWUxsckFlWDJFSS82TktOcTY2bUJCQ1oraU1Lc1RVeE41bEU1QllMSjdKMmZxY3dnQnJ4Z2JhNHhQVzQ2YUNDRXdGdGZ0TEV4VTMiLCJtYWMiOiIxNzJmN2VjMTE5MWJkOWM3Y2U4ZWJlNDE1MjhlYTAzNjkyMTQ3MDcwOGMxMmYxMzZlNDE1NTJmOWM4ZmY5MjAzIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6ImtrNVIrS0VjWnBydzR0YlBVc1lySkE9PSIsInZhbHVlIjoiYWNCdVZQSFdxK2s2eFphcHB3VGRZaVByblB6YnpWQmY0OGE5amljWi9wdkVzV09vcHBBSUdhcWg1QWVZQ012YWRBaVJ3bytCMG8yL3lPeDRpNTFiS0pjQmFQYUZKMXdBQ2VLUjdiRG1iU3k3MHkxYm81SkpXSHZKR1FQR1hQWWEiLCJtYWMiOiI0ZmRjMDUyZjAxM2Q4MjllZTE4NjIwNmNiYzdmZDYzZDhkNDViZGIzM2JlOGIyYmU0OTgzODUxZWU4Zjg1YTIyIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IlZIRGxtSng4QjdTclNBWWFxbnhuUWc9PSIsInZhbHVlIjoibEtiY3hKTjhHVGNVYVJvV0JnLzVaZCtTM3RGRVFrekV1RC9vTXdzU2U1b1g0bjgrRUQvVnBOM0xCaUE1MU84RzRyZmlWNCtMV3VzRFNPVWljZ2hHRjgybkhybTFOQ1dRL2N5UUM5dkRXWmFGS0RUVW4wajlSVEh6YmdDMG5iZ1ciLCJtYWMiOiJjMjM4NWFlNWI2MGE2MDg1YTRlYmU1MDZjYjM3YjQwYzc0ODdkM2Q1YjdkZmU5OTFjM2E5ODg3MzBlZWU1MTljIiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:57 GMT; Max-Age=7200; path=/; samesite=lax; teamflow-session=eyJpdiI6IkFya0I2amw4VGRPUVZiN0d1dTNjOVE9PSIsInZhbHVlIjoiVzYzY05zbW1JSnJQK1Izd1k3T0cvaWtQeWRtWjlMbDN4RW9PV0FqYmJxeDIwVW5XWmoxSFVaM01NTmRrL2RzSVBGOWUvME5RZThDQmRTd3ZpVzhDVWtCZHNkQTlmQ3Erd2pqUFpQSVZrMkwwSGE1NjJBbm5wdEJnSXFVeXRodUwiLCJtYWMiOiIzNzUyYmY2NTYwYjU4ZWFmZmIwYzNmYjE0M2Q4ZWU4YTFiMzU1YTgzYjY2OGE2ZTM1MWIwODExNTg1NzU4YmE5IiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:57 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
     auth:
@@ -76,14 +76,14 @@ endpoints:
         name: teamId
         description: ''
         required: true
-        example: 019bbe58-dcaf-7342-8438-17a3321c9b90
+        example: 019be53c-c3a4-7334-b2c8-54a7b9ce2cda
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      teamId: 019bbe58-dcaf-7342-8438-17a3321c9b90
+      teamId: 019be53c-c3a4-7334-b2c8-54a7b9ce2cda
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -97,7 +97,7 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          set-cookie: 'XSRF-TOKEN=eyJpdiI6IlQvSWxvSndibkl3T09QeGNDd0VBYmc9PSIsInZhbHVlIjoiR3BIdzZmUVo5Z1Y0bzQ2UENqVHVDb1dncFo2L0c4NUNGbGVqK0grWXp2bEQ0NkFHa2pIdDEvbFBVVk9ZZXNpMTAxcTNrRXVlWkc1bHlab2liOUZUK3pHRmRHa055aDVkMTJiazhXQTZySEVBT2dqeTA1SEh5bkI1ZlZobUd2U2IiLCJtYWMiOiI4MDk2MWJlMjhhMzVkY2NkOTNkNTAzNzM3YzUzYTUzNGFjYTBhZTIwYzMwZmYwNDIzNmNjNDc3YzFiYWRhOTRlIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IlFIY2Z5a3kxTjA2czNlTm8zZmhYOHc9PSIsInZhbHVlIjoiYWF1c21KMXFIZ3pLdEdpS3VWT0I4K3ZRVzYwZ2xuN1I5L2lhOWZqZENRd1VkbE8rUTJOUkk5ckQ2UitVamhJd3Fqdm90VTBnNXltNEc5K2U5L1cySjh3djlRTk9lcFNDWWl0ZGViUGFhSzlyQ1VIaERqQlZnYm5wOHRRMk42SjQiLCJtYWMiOiJiMTQ1N2VkY2Q3OTllNzJiMzU4YjUyOWNjM2JkZWViMDA3NTAwNWMzNjVlMjIwMjM3NWIyMzg5YmIzMzYzZDliIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6IlRNMlZ2YVY3NXFRbW1qMmsycDhhVFE9PSIsInZhbHVlIjoiVEZ6Q1VLTUlwaGZ6SzhWWERGUTV5TVFmY01GU0VQUGlidFVJTVRzc1BQbXAwQ0pFY0hEZTZ5KzBRRUNuZWhzbm1sMDR0SE5EajN3em1XdVQyWkFWU29JK1FlWFFaZDFXRW5lS2lEUlIrZklLOEJEaGRoWC9XN1Bod1JqRFFCUUYiLCJtYWMiOiI1ZjljNDQ3MWQ4NDY2MDAyOTE5OWUyYTEwZjI4ZTFlZjk1YTNmYWVlYjQ3MDQ0ZjgzM2M2MTg1ZjUzY2E4M2IzIiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:58 GMT; Max-Age=7200; path=/; samesite=lax; teamflow-session=eyJpdiI6IjZLWUxYVFJtRHJlWWs5V1p3ZEo0emc9PSIsInZhbHVlIjoiSG9qcTJkV3cxQTlBTUJBK1A1SmlTZy9wZVcvTVp1MUpOaUxGZGhxRzhEMFVlQmhTS0dGdDQ1N0syRVNMNWxIYnhzYjJJV3hqQTc2VVYxMm9wNUFHN3EzamN5NVk2KzVvSEZzOXVZNUFUMUl2dUhMS3ZENmdDMlF6bXMvQWxjQnAiLCJtYWMiOiJlOWE2YWNjMGYzM2M2MzJlOWMxNGIwZTc2ZmUwYzc5OGI1MTJiMDY3OTZjNTQwOGRkZjBjYWRlMDQzMjY5N2Y2IiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:58 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
     auth:
@@ -219,14 +219,14 @@ endpoints:
         name: invite_id
         description: 'The ID of the invite.'
         required: true
-        example: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+        example: 019be53c-c45b-7000-a3e0-5e9f0b95d942
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      invite_id: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+      invite_id: 019be53c-c45b-7000-a3e0-5e9f0b95d942
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -240,7 +240,7 @@ endpoints:
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          set-cookie: 'XSRF-TOKEN=eyJpdiI6Ii93azRmc0thSFpFS2J2K3JVVEFRWmc9PSIsInZhbHVlIjoicnlNWHNPd0Jya2Y1dUZlTzhjdHlFNjlLZGRvQlB2N1VsdUp2bW9tcEYrK281aWRDL2RFNi81T1RuTDNpOTl4allEdWs1WlRzT3VOMTg2UTFYTlV3dDdsem9tV0Y4LytoR3lUNFUrTk9kaVJtbEZTRGFXYUpMTlZQcVNTZHFwSmwiLCJtYWMiOiI2NDUzNjIxNGI1MTRlYWE5Nzk5Y2MwM2Q3N2MwZmNjMjQ0ZmIyNDFmYTI5NThiYjQ4NDcxNTFiY2ZlN2EyMzhhIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; samesite=lax; laravel-session=eyJpdiI6IktSTTlFZ2t0VnlpeW5VeStWVDR0RVE9PSIsInZhbHVlIjoianFFMFpVS24wb1ZjaGQreW9jZ0srdDNISjNVL2x0MVdLcDFDcVV4TUYzTHhpSS9IRnZ0ZlhUZFozdmdYdlY3N1FKbkEwZFltbGNkcGYrSnlqODhpOTlVQ3cxTXdBOFg0MmNSWDZjMHlqYmRBZFR4U0JhMURFMFoxdEhOVU9VSC8iLCJtYWMiOiJkZGQxZmZhYmUzNGY1NTc3NzNmZWFiZjI2ODE0NzVjMTk5OWQ0YjMxZjZjNWVlZTUwMWIzNzE5ZDAwYzQ1ZWIyIiwidGFnIjoiIn0%3D; expires=Thu, 15 Jan 2026 16:03:34 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6Im9XNUlQRmQydHJIUXlVbEhobzV6SXc9PSIsInZhbHVlIjoic3VOeHF3blphZ1BKYTg3WXNLWEpkZkZMMEZER09FS0xJM3pRcGp1dXpFN05OZDlQQ2haYUlIMHJYSkNFVFJNcCtJaFJ1eS9QdTUwNEJPMTJqUnVqTE4zUk10Y3VpVHR2NitzaW5mWUhDaThsQy8yTW9WelJZRVBCb3Fnang4LzgiLCJtYWMiOiIzMzYwOGI4YmJkNmI3NzI4Zjg4NjdhMGU2ZTc2OTIyN2ZmYThiZTE1ZWU0YWUwOWRiYzEzNjdhNWUxZWFkYmU5IiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:58 GMT; Max-Age=7200; path=/; samesite=lax; teamflow-session=eyJpdiI6IlpuK3UrT0xtTmM0NDNVSC95b2JKa3c9PSIsInZhbHVlIjoiVjgzMC9sQW53LzRWYkdnVk5MNDlNS29qbWNMd3QrZTJUT3dtNjVrcTF1dnNyYUdFVFkva1hRZDk3SytjWWpDb283aWRJd1Y0VFBVUXFDQW0vcndOc2hOa3pkaHQyQUdpRzVrM2dHYmpVQVdlWHdEdmw1SjJMRFEvRGxrSFRKS2giLCJtYWMiOiI5NTc2MGYwM2Q5YjdiOTg3MDY5YWU2MGQ1MmM2MzQxMzZhNjRmZGQyYjc5NDg1NjE1NzdiNmY5YjI5ZTliYTQ3IiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:58 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
         description: null
     responseFields: []
     auth:
@@ -277,14 +277,14 @@ endpoints:
         name: invite_id
         description: 'The ID of the invite.'
         required: true
-        example: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+        example: 019be53c-c45b-7000-a3e0-5e9f0b95d942
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      invite_id: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+      invite_id: 019be53c-c45b-7000-a3e0-5e9f0b95d942
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -326,14 +326,14 @@ endpoints:
         name: invite_id
         description: 'The ID of the invite.'
         required: true
-        example: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+        example: 019be53c-c45b-7000-a3e0-5e9f0b95d942
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      invite_id: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+      invite_id: 019be53c-c45b-7000-a3e0-5e9f0b95d942
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -375,14 +375,14 @@ endpoints:
         name: invite_id
         description: 'The ID of the invite.'
         required: true
-        example: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+        example: 019be53c-c45b-7000-a3e0-5e9f0b95d942
         type: string
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      invite_id: 019bbe58-dd0a-724e-842c-43bd71a62f6d
+      invite_id: 019be53c-c45b-7000-a3e0-5e9f0b95d942
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []

@@ -1,0 +1,175 @@
+name: 'Task Attachments'
+description: |-
+
+  APIs for managing file attachments on tasks. Supports images and documents.
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: task-attachments
+    metadata:
+      custom: []
+      groupName: 'Task Attachments'
+      groupDescription: |-
+
+        APIs for managing file attachments on tasks. Supports images and documents.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Upload attachments to a task.'
+      description: 'Upload one or more files to attach to a task.'
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      task_id:
+        custom: []
+        name: task_id
+        description: 'Must be a valid UUID. The <code>id</code> of an existing record in the tasks table.'
+        required: true
+        example: 6ff8f7f6-1eb3-3525-be4a-3932c805afed
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      files:
+        custom: []
+        name: files
+        description: 'Must be a file. Must not be greater than 10240 kilobytes.'
+        required: true
+        example:
+          - null
+        type: 'file[]'
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      task_id: 6ff8f7f6-1eb3-3525-be4a-3932c805afed
+    fileParameters:
+      files:
+        - null
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'task-attachments/{attachment_id}/download'
+    metadata:
+      custom: []
+      groupName: 'Task Attachments'
+      groupDescription: |-
+
+        APIs for managing file attachments on tasks. Supports images and documents.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Download an attachment.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      attachment_id:
+        custom: []
+        name: attachment_id
+        description: 'The ID of the attachment.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      attachment_id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          set-cookie: 'XSRF-TOKEN=eyJpdiI6Ik1JT1lzMnV6blF1UFFzc29sYldFcUE9PSIsInZhbHVlIjoiWS9iZHYzWTR1dGg2TXZhNkl0Zm1ETFQ4MERYNXNFMGNjd0dWb2xUbWNPelV0MkcrVDBmdksvdWlsck0xcnNqSnovVFFQbUR4SzJhVitHLzR1b21uUXhmQitQQVphaVZQaTBLSXhDZjRQRVFTK1Fndjc1QjlpRFV6aGpJeEdoenQiLCJtYWMiOiIyMGUzNGU2NWU5NDE1Y2E3NWRhMzE5ZTBjM2E0MjdlOWVkNmIwMjdmMWM2ZTVmZGIxNmY0MTc3ODg5MGRhMzAxIiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:58 GMT; Max-Age=7200; path=/; samesite=lax; teamflow-session=eyJpdiI6Ilo3bVhVakpWdnFsZWRhMXlZeU5weHc9PSIsInZhbHVlIjoibmlsTWlRTWhiK2I4dzhVVjErNUNoR1FZTzdQV0gvcHhCTXA3L1hGUE55aTM2Z1NIVzZ6ckhFcTNCS1c2OU96dGM2ZktOajZsS0xOLzRWaExEclBWRnowYmRMS2p0VXF6akJxb0hDTHlxNGE0RzlrMGxMYjdFZ3Q3ekwxZ1RwSjEiLCJtYWMiOiI5YjRmYjYxNmNkODRhMTE1NTFmM2FmZWIwZjg1ZTFjMzhlODdlMWYyZDBjMWRkMzQ1MjNjY2M5OGE0OWMwYzljIiwidGFnIjoiIn0%3D; expires=Thu, 22 Jan 2026 12:28:58 GMT; Max-Age=7200; path=/; httponly; samesite=lax'
+        description: null
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'task-attachments/{attachment_id}'
+    metadata:
+      custom: []
+      groupName: 'Task Attachments'
+      groupDescription: |-
+
+        APIs for managing file attachments on tasks. Supports images and documents.
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete an attachment.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      X-XSRF-TOKEN: '{XSRF_TOKEN}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      attachment_id:
+        custom: []
+        name: attachment_id
+        description: 'The ID of the attachment.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      attachment_id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - X-XSRF-TOKEN
+      - 6g43cv8PD1aE5beadkZfhV6
+    controller: null
+    method: null
+    route: null
