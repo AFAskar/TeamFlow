@@ -15,7 +15,7 @@ services:
     volumes:
       - .:/var/www/html
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
-      - /var/www/html/vendor
+      - teamflow_vendor:/var/www/html/vendor
       - /var/www/html/node_modules
       - /var/www/html/storage
       - /var/www/html/bootstrap/cache
@@ -89,7 +89,7 @@ services:
     volumes:
       - .:/var/www/html
       - /var/www/html/node_modules
-      - /var/www/html/vendor
+      - teamflow_vendor:/var/www/html/vendor
       - /var/www/html/storage
       - /var/www/html/bootstrap/cache
       - /var/www/html/.pnpm-store
@@ -112,7 +112,7 @@ services:
     command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
     volumes:
       - .:/var/www/html
-      - /var/www/html/vendor
+      - teamflow_vendor:/var/www/html/vendor
     environment:
       - APP_ENV=${APP_ENV:-local}
       - DB_CONNECTION=pgsql
@@ -141,7 +141,7 @@ services:
     command: sh -c "while true; do php artisan schedule:run --verbose --no-interaction; sleep 60; done"
     volumes:
       - .:/var/www/html
-      - /var/www/html/vendor
+      - teamflow_vendor:/var/www/html/vendor
     environment:
       - APP_ENV=${APP_ENV:-local}
       - DB_CONNECTION=pgsql
@@ -173,6 +173,8 @@ volumes:
   postgres_data:
     driver: local
   redis_data:
+    driver: local
+  teamflow_vendor:
     driver: local
 
 networks:

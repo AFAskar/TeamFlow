@@ -163,6 +163,11 @@ RUN npm install -g pnpm
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+WORKDIR /var/www/html
+COPY composer.json composer.lock ./
+RUN composer install --prefer-dist --no-scripts --no-autoloader
+RUN composer dump-autoload --optimize --no-scripts
+
 # Create permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html
