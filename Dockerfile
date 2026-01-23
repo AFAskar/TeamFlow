@@ -175,6 +175,9 @@ RUN composer dump-autoload --optimize --no-scripts
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html
 
+# Copy built frontend assets (fallback for when Node is not running)
+COPY --from=build-frontend /var/www/html/public/build ./public/build
+
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 

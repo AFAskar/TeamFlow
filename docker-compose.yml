@@ -19,6 +19,7 @@ services:
       - /var/www/html/node_modules
       - /var/www/html/storage
       - /var/www/html/bootstrap/cache
+      - /var/www/html/public/build
     environment:
       - APP_ENV=${APP_ENV:-local}
       - APP_DEBUG=${APP_DEBUG:-true}
