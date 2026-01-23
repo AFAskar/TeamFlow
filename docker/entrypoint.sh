@@ -7,14 +7,18 @@ set -e
 echo "🚀 Starting TeamFlow container..."
 
 # Create required directories
-mkdir -p /var/log/php /var/log/xdebug /var/log/supervisor
+mkdir -p /var/log/php \
+    /var/log/xdebug \
+    /var/log/supervisor \
+    /var/www/html/storage/framework/views \
+    /var/www/html/storage/framework/cache \
+    /var/www/html/storage/framework/sessions \
+    /var/www/html/storage/logs
 
 # Ensure proper permissions for Laravel
 echo "📁 Setting up permissions..."
-chown -R www-data:www-data /var/www/html/storage
-chown -R www-data:www-data /var/www/html/bootstrap/cache
-chmod -R 775 /var/www/html/storage
-chmod -R 775 /var/www/html/bootstrap/cache
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Wait for MySQL to be ready (if DB_CONNECTION is mysql)
 if [ "$DB_CONNECTION" = "mysql" ]; then
