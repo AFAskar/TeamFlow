@@ -86,7 +86,7 @@ RUN apk add --no-cache nodejs npm git
 # Install pnpm
 RUN npm install -g pnpm
 
-# Install Composer (needed for some build scripts that might rely on artisan)
+# Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
@@ -99,7 +99,7 @@ RUN composer install --no-scripts --no-autoloader --prefer-dist
 # Copy frontend dependency files
 COPY package.json pnpm-lock.yaml ./
 
-# Install frontend dependencies
+# Install frontend dependencies (ignore filters to ensure all packages needed for build are present)
 RUN pnpm install --frozen-lockfile
 
 # Copy application files
@@ -120,6 +120,9 @@ WORKDIR /var/www/html
 
 # Copy Composer dependencies from deps-backend
 COPY --from=deps-backend /var/www/html/vendor ./vendor
+
+# Copy built frontend assets from build-frontend
+COPY --from=build-frontend /var/www/html/public/build ./public/build
 
 # Copy application files (excluding those covered by .dockerignore)
 COPY . .
