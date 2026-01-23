@@ -28,7 +28,7 @@ services:
       - DB_DATABASE=${DB_DATABASE:-teamflow}
       - DB_USERNAME=${DB_USERNAME:-teamflow}
       - DB_PASSWORD=${DB_PASSWORD:-secret}
-      - REDIS_HOST=${REDIS_HOST:-redis_mem}
+      - REDIS_HOST=redis_mem
       - CACHE_STORE=${CACHE_STORE:-redis}
       - SESSION_DRIVER=${SESSION_DRIVER:-redis}
       - QUEUE_CONNECTION=${QUEUE_CONNECTION:-redis}
@@ -120,7 +120,7 @@ services:
       - DB_DATABASE=${DB_DATABASE:-teamflow}
       - DB_USERNAME=${DB_USERNAME:-teamflow}
       - DB_PASSWORD=${DB_PASSWORD:-secret}
-      - REDIS_HOST=${REDIS_HOST:-redis_mem}
+      - REDIS_HOST=redis_mem
       - QUEUE_CONNECTION=${QUEUE_CONNECTION:-redis}
     depends_on:
       - app
