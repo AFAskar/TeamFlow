@@ -118,16 +118,18 @@ FROM base AS production
 
 WORKDIR /var/www/html
 
-# Copy Composer dependencies from deps-backend
-COPY --from=deps-backend /var/www/html/vendor ./vendor
-
-# Copy built frontend assets from build-frontend
-COPY --from=build-frontend /var/www/html/public/build ./public/build
-
-# Copy application files (excluding those covered by .dockerignore)
+# 1. Copy application files FIRST (allows layer caching for dependencies if app code changes frequent but deps don't? No, usually deps are cached longer. But COPY . . invalidates everything after.)
+# Actually, best practice:
+# 1. Vendor (deps) - cached if composer.lock unchanged.
+# 2. App code.
+# BUT if COPY . . includes vendor (from host), it ruins the previous COPY.
+# Assumption: .dockerignore excludes vendor.
 COPY . .
 
-# Copy built frontend assets from build-frontend
+# 2. Copy production dependencies (overlay checking)
+COPY --from=deps-backend /var/www/html/vendor ./vendor
+
+# 3. Copy built frontend assets
 COPY --from=build-frontend /var/www/html/public/build ./public/build
 
 # Generate optimized autoloader for production
@@ -178,6 +180,7 @@ RUN chown -R www-data:www-data /var/www/html \
 # Copy built frontend assets (fallback for when Node is not running)
 COPY --from=build-frontend /var/www/html/public/build ./public/build
 
+# Copy Entrypoint
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
