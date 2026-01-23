@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -24,11 +23,15 @@ return new class extends Migration
             $table->uuid('created_by');
             $table->uuid('assigned_to')->nullable();
             $table->foreign('project_id')->references('id')->on('projects')->cascadeOnDelete();
-            $table->foreign('parent_id')->references('id')->on('tasks')->nullOnDelete();
+            // $table->foreign('parent_id')->references('id')->on('tasks')->nullOnDelete(); // Moved to separate call
             $table->foreign('created_by')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('assigned_to')->references('id')->on('users')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
+        });
+
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->foreign('parent_id')->references('id')->on('tasks')->nullOnDelete();
         });
     }
 
