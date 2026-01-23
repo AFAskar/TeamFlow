@@ -76,7 +76,10 @@ services:
 
   # Node.js for frontend development (Vite dev server)
   node:
-    image: node:20-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
     container_name: teamflow-node
     working_dir: /var/www/html
     ports:
@@ -84,12 +87,15 @@ services:
     volumes:
       - .:/var/www/html
       - /var/www/html/node_modules
-    command: sh -c "npm install -g pnpm && pnpm install && pnpm run dev --host 0.0.0.0"
+      - /var/www/html/vendor
+    # Override entrypoint to avoid re-running initialization/migrations
+    entrypoint: /bin/sh -c
+    command: "pnpm install && pnpm run dev --host 0.0.0.0"
     networks:
       - teamflow
     profiles:
       - dev
-
+      
   # Queue Worker
   queue:
     build:

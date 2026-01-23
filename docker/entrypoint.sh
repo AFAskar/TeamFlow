@@ -18,16 +18,25 @@ chmod -R 775 /var/www/html/bootstrap/cache
 
 # Wait for MySQL to be ready (if DB_CONNECTION is mysql)
 if [ "$DB_CONNECTION" = "mysql" ]; then
-    echo "⏳ Waiting for MySQL..."
+    echo "⏳ Waiting for MySQL (${DB_HOST:-mysql}:${DB_PORT:-3306})..."
     while ! nc -z ${DB_HOST:-mysql} ${DB_PORT:-3306}; do
         sleep 1
     done
     echo "✅ MySQL is ready!"
 fi
 
+# Wait for PostgreSQL to be ready (if DB_CONNECTION is pgsql)
+if [ "$DB_CONNECTION" = "pgsql" ]; then
+    echo "⏳ Waiting for PostgreSQL (${DB_HOST:-postgres}:${DB_PORT:-5432})..."
+    while ! nc -z ${DB_HOST:-postgres} ${DB_PORT:-5432}; do
+        sleep 1
+    done
+    echo "✅ PostgreSQL is ready!"
+fi
+
 # Wait for Redis to be ready (if REDIS_HOST is set)
 if [ -n "$REDIS_HOST" ]; then
-    echo "⏳ Waiting for Redis..."
+    echo "⏳ Waiting for Redis (${REDIS_HOST:-redis}:${REDIS_PORT:-6379})..."
     while ! nc -z ${REDIS_HOST:-redis} ${REDIS_PORT:-6379}; do
         sleep 1
     done

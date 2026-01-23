@@ -152,7 +152,6 @@ CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 FROM base AS development
 
 # Install development tools
-# Install development tools
 RUN apk add --no-cache \
     git \
     nodejs \
