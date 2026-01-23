@@ -94,12 +94,9 @@ services:
       - /var/www/html/bootstrap/cache
       - /var/www/html/.pnpm-store
     # Override entrypoint to avoid re-running initialization/migrations
-    entrypoint: /bin/sh -c
-    command: "pnpm install && pnpm run dev --host 0.0.0.0"
+    entrypoint: ["/bin/sh", "-c", "pnpm install && pnpm run dev --host 0.0.0.0"]
     networks:
       - teamflow
-    profiles:
-      - dev
       
   # Queue Worker
   queue:
