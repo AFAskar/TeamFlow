@@ -37,7 +37,7 @@ fi
 # Wait for Redis to be ready (if REDIS_HOST is set)
 if [ -n "$REDIS_HOST" ]; then
     echo "⏳ Waiting for Redis (${REDIS_HOST:-redis}:${REDIS_PORT:-6379})..."
-    while ! nc -z ${REDIS_HOST:-redis} ${REDIS_PORT:-6379}; do
+    while ! nc -z ${REDIS_HOST:-redis_mem} ${REDIS_PORT:-6379}; do
         sleep 1
     done
     echo "✅ Redis is ready!"

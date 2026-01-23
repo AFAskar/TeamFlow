@@ -26,13 +26,13 @@ services:
       - DB_DATABASE=${DB_DATABASE:-teamflow}
       - DB_USERNAME=${DB_USERNAME:-teamflow}
       - DB_PASSWORD=${DB_PASSWORD:-secret}
-      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_HOST=${REDIS_HOST:-redis_mem}
       - CACHE_STORE=${CACHE_STORE:-redis}
       - SESSION_DRIVER=${SESSION_DRIVER:-redis}
       - QUEUE_CONNECTION=${QUEUE_CONNECTION:-redis}
     depends_on:
       - postgres
-      - redis
+      - redis_mem
     networks:
       - teamflow
 
@@ -58,7 +58,7 @@ services:
       retries: 5
 
   # Redis for caching, sessions, and queues
-  redis:
+  redis_mem:
     image: redis:7-alpine
     container_name: teamflow-redis
     restart: unless-stopped
@@ -119,7 +119,7 @@ services:
       - QUEUE_CONNECTION=${QUEUE_CONNECTION:-redis}
     depends_on:
       - app
-      - redis
+      - redis_mem
     networks:
       - teamflow
     profiles:
