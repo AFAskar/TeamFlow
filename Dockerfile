@@ -1,29 +1,38 @@
-# TeamFlow - Development Dockerfile
+# TeamFlow - Dockerfile
 # Multi-stage build for Laravel + React application
 
+# ------------------------------------------------------------------------------
+# Stage 1: Base Image (Runtime Dependencies)
+# ------------------------------------------------------------------------------
 FROM php:8.4-fpm-alpine AS base
 
-# Install system dependencies
+# Install system dependencies required for production runtime
 RUN apk add --no-cache \
-    git \
     curl \
+    libpng \
+    libjpeg-turbo \
+    freetype \
+    libzip \
+    zip \
+    unzip \
+    icu-libs \
+    oniguruma \
+    sqlite-libs \
+    supervisor \
+    nginx \
+    bash
+
+# Install PHP extensions
+RUN apk add --no-cache --virtual .build-deps \
+    linux-headers \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
     libzip-dev \
-    zip \
-    unzip \
     icu-dev \
     oniguruma-dev \
     sqlite-dev \
-    nodejs \
-    npm \
-    supervisor \
-    nginx \
-    netcat-openbsd
-
-# Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
     pdo \
     pdo_sqlite \
@@ -35,88 +44,140 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     gd \
     zip \
     intl \
-    opcache
+    opcache \
+    && apk del .build-deps
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Configure PHP
+COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
+COPY docker/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
-# Install pnpm
-RUN npm install -g pnpm
+# Configure Nginx
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY docker/nginx/default.conf /etc/nginx/http.d/default.conf
+
+# Configure Supervisor
+COPY docker/supervisord.conf /etc/supervisord.conf
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy composer files first for better caching
+# ------------------------------------------------------------------------------
+# Stage 2: Backend Dependencies (Composer)
+# ------------------------------------------------------------------------------
+FROM composer:latest AS deps-backend
+
+WORKDIR /var/www/html
+
 COPY composer.json composer.lock ./
 
-# Install PHP dependencies
-RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
+# Install production dependencies only
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --ignore-platform-reqs
 
-# Copy package.json files for better caching
+# ------------------------------------------------------------------------------
+# Stage 3: Frontend Build (Node.js)
+# ------------------------------------------------------------------------------
+FROM base AS build-frontend
+
+# Install Node.js and npm
+RUN apk add --no-cache nodejs npm git
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Install Composer (needed for some build scripts that might rely on artisan)
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+# Copy backend files first (Composer dependencies might be needed for artisan commands)
+COPY composer.json composer.lock ./
+# Install ALL composer dependencies (dev included) so artisan commands work
+RUN composer install --no-scripts --no-autoloader --prefer-dist
+
+# Copy frontend dependency files
 COPY package.json pnpm-lock.yaml ./
 
-# Install Node dependencies
+# Install frontend dependencies
 RUN pnpm install --frozen-lockfile
 
 # Copy application files
 COPY . .
 
-# Generate autoloader 
-RUN composer dump-autoload --optimize --no-scripts
+# Generate autoloader so artisan works
+RUN composer dump-autoload --optimize
 
 # Build frontend assets
 RUN pnpm run build
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+# ------------------------------------------------------------------------------
+# Stage 4: Production Image
+# ------------------------------------------------------------------------------
+FROM base AS production
 
-# Copy configuration files
-COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY docker/nginx/default.conf /etc/nginx/http.d/default.conf
-COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
-COPY docker/php/www.conf /usr/local/etc/php-fpm.d/www.conf
-COPY docker/supervisord.conf /etc/supervisord.conf
+WORKDIR /var/www/html
+
+# Copy Composer dependencies from deps-backend
+COPY --from=deps-backend /var/www/html/vendor ./vendor
+
+# Copy application files (excluding those covered by .dockerignore)
+COPY . .
+
+# Copy built frontend assets from build-frontend
+COPY --from=build-frontend /var/www/html/public/build ./public/build
+
+# Generate optimized autoloader for production
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer dump-autoload --optimize --no-dev --classmap-authoritative \
+    && rm /usr/bin/composer
+
+# Create necessary directories and set permissions
+RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 storage bootstrap/cache
+
+# Copy Entrypoint
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-
-# Make entrypoint executable
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Create storage directories
-RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views
-
-# Create log directories
-RUN mkdir -p /var/log/php /var/log/xdebug /var/log/supervisor
-
-# Expose port
 EXPOSE 80
 
-# Set entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
-# Start supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 
-# Development stage with additional tools
+# ------------------------------------------------------------------------------
+# Stage 5: Development Image
+# ------------------------------------------------------------------------------
 FROM base AS development
 
-# Install development dependencies
+# Install development tools
 RUN apk add --no-cache \
+    git \
     vim \
     nano \
-    bash
+    nodejs \
+    npm
 
-# Install Xdebug for debugging
-RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS linux-headers \
+# Install pnpm
+RUN npm install -g pnpm
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Install Xdebug
+RUN apk add --no-cache --virtual .build-deps linux-headers $PHPIZE_DEPS \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && apk del .build-deps
 
-# Copy Xdebug configuration
 COPY docker/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
-# Re-install with dev dependencies for development
-RUN composer install --no-scripts
+# Create permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html
 
-# Keep container running for development
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+
