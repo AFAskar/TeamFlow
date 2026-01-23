@@ -97,6 +97,11 @@ services:
     entrypoint: ["/bin/sh", "-c", "pnpm install && pnpm run dev --host 0.0.0.0"]
     networks:
       - teamflow
+    depends_on:
+      - postgres
+      - redis_mem
+    profiles:
+      - dev
       
   # Queue Worker
   queue:
