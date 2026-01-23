@@ -18,6 +18,7 @@ RUN apk add --no-cache \
     icu-libs \
     oniguruma \
     sqlite-libs \
+    libpq \
     supervisor \
     nginx \
     bash
@@ -32,11 +33,12 @@ RUN apk add --no-cache --virtual .build-deps \
     icu-dev \
     oniguruma-dev \
     sqlite-dev \
+    postgresql-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
     pdo \
     pdo_sqlite \
-    pdo_mysql \
+    pdo_pgsql \
     mbstring \
     exif \
     pcntl \
@@ -150,10 +152,9 @@ CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
 FROM base AS development
 
 # Install development tools
+# Install development tools
 RUN apk add --no-cache \
     git \
-    vim \
-    nano \
     nodejs \
     npm
 
@@ -162,14 +163,6 @@ RUN npm install -g pnpm
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-# Install Xdebug
-RUN apk add --no-cache --virtual .build-deps linux-headers $PHPIZE_DEPS \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
-    && apk del .build-deps
-
-COPY docker/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # Create permissions
 RUN chown -R www-data:www-data /var/www/html \

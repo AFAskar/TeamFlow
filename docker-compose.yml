@@ -20,9 +20,9 @@ services:
     environment:
       - APP_ENV=${APP_ENV:-local}
       - APP_DEBUG=${APP_DEBUG:-true}
-      - DB_CONNECTION=${DB_CONNECTION:-sqlite}
-      - DB_HOST=${DB_HOST:-mysql}
-      - DB_PORT=${DB_PORT:-3306}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
       - DB_DATABASE=${DB_DATABASE:-teamflow}
       - DB_USERNAME=${DB_USERNAME:-teamflow}
       - DB_PASSWORD=${DB_PASSWORD:-secret}
@@ -31,30 +31,28 @@ services:
       - SESSION_DRIVER=${SESSION_DRIVER:-redis}
       - QUEUE_CONNECTION=${QUEUE_CONNECTION:-redis}
     depends_on:
-      - mysql
+      - postgres
       - redis
     networks:
       - teamflow
 
-  # MySQL Database (optional - can use SQLite)
-  mysql:
-    image: mysql:8.0
-    container_name: teamflow-mysql
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: teamflow-postgres
     restart: unless-stopped
     ports:
-      - "${DB_PORT:-3306}:3306"
+      - "${DB_PORT:-5432}:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
-      MYSQL_DATABASE: ${DB_DATABASE:-teamflow}
-      MYSQL_USER: ${DB_USERNAME:-teamflow}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      POSTGRES_DB: ${DB_DATABASE:-teamflow}
+      POSTGRES_USER: ${DB_USERNAME:-teamflow}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - teamflow
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-teamflow}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -106,8 +104,8 @@ services:
       - /var/www/html/vendor
     environment:
       - APP_ENV=${APP_ENV:-local}
-      - DB_CONNECTION=${DB_CONNECTION:-sqlite}
-      - DB_HOST=${DB_HOST:-mysql}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
       - DB_DATABASE=${DB_DATABASE:-teamflow}
       - DB_USERNAME=${DB_USERNAME:-teamflow}
       - DB_PASSWORD=${DB_PASSWORD:-secret}
@@ -135,8 +133,8 @@ services:
       - /var/www/html/vendor
     environment:
       - APP_ENV=${APP_ENV:-local}
-      - DB_CONNECTION=${DB_CONNECTION:-sqlite}
-      - DB_HOST=${DB_HOST:-mysql}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
       - DB_DATABASE=${DB_DATABASE:-teamflow}
       - DB_USERNAME=${DB_USERNAME:-teamflow}
       - DB_PASSWORD=${DB_PASSWORD:-secret}
@@ -161,7 +159,7 @@ services:
       - mail
 
 volumes:
-  mysql_data:
+  postgres_data:
     driver: local
   redis_data:
     driver: local
