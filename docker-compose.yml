@@ -17,6 +17,8 @@ services:
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
       - /var/www/html/vendor
       - /var/www/html/node_modules
+      - /var/www/html/storage
+      - /var/www/html/bootstrap/cache
     environment:
       - APP_ENV=${APP_ENV:-local}
       - APP_DEBUG=${APP_DEBUG:-true}
@@ -88,6 +90,9 @@ services:
       - .:/var/www/html
       - /var/www/html/node_modules
       - /var/www/html/vendor
+      - /var/www/html/storage
+      - /var/www/html/bootstrap/cache
+      - /var/www/html/.pnpm-store
     # Override entrypoint to avoid re-running initialization/migrations
     entrypoint: /bin/sh -c
     command: "pnpm install && pnpm run dev --host 0.0.0.0"
@@ -115,7 +120,7 @@ services:
       - DB_DATABASE=${DB_DATABASE:-teamflow}
       - DB_USERNAME=${DB_USERNAME:-teamflow}
       - DB_PASSWORD=${DB_PASSWORD:-secret}
-      - REDIS_HOST=${REDIS_HOST:-redis}
+      - REDIS_HOST=${REDIS_HOST:-redis_mem}
       - QUEUE_CONNECTION=${QUEUE_CONNECTION:-redis}
     depends_on:
       - app
